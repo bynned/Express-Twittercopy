@@ -13,6 +13,21 @@ code {
     monospace;
 }
 
+.textarea {
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    resize: none;
+    width: 100%;
+    height: 65px;
+  }
+
+  .textarea:focus {
+    outline: none;
+    border-color: #40e0d0;
+    box-shadow: 0 0 5px #39c9bb;
+  }
+
 .error-container {
   display: flex;
   align-items: center;

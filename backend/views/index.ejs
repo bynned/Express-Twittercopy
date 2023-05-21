@@ -9,9 +9,10 @@
     <form action="/logout?_method=DELETE" method="POST">
         <button type="submit">Log Out</button>
     </form>
+    <br />
     <form action="/" method="POST">
         <input type="hidden" name="name" value="<%= name %>">
-        <textarea name="post" placeholder="What are you thinking?"></textarea>
+        <textarea class="textarea" name="post" placeholder="What are you thinking?"></textarea>
         <button type="submit">Post</button>
     </form>
   </div>
