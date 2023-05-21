@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Forum - Home</title>
+    <link href="/css/main.css" rel="stylesheet" type="text/css" />
+  </head>
+  <div class="App">
+    <h1>Welcome <%= name %></h1>
+    <form action="/logout?_method=DELETE" method="POST">
+        <button type="submit">Log Out</button>
+    </form>
+    <form action="/" method="POST">
+        <input type="hidden" name="name" value="<%= name %>">
+        <textarea name="post" placeholder="What are you thinking?"></textarea>
+        <button type="submit">Post</button>
+    </form>
+  </div>
+</html>
