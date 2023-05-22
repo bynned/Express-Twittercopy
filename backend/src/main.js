@@ -8,6 +8,7 @@ const session = require("express-session");
 const methodOverride = require("method-override");
 const date = require('date-and-time');
 const mongoose = require('mongoose');
+const { v4: uuidv4 } = require('uuid');
 
 mongoose.connect(process.env.DATABASE_URL);
 const db = mongoose.connection
@@ -68,7 +69,7 @@ app.post("/register", checkNotAuthenticated, async (req, res) => {
   try {
     const hashedPassword = await bcrypt.hash(req.body.password, 10);
     users.push({
-      id: Date.now().toString(),
+      id: uuidv4(),
       name: req.body.name,
       email: req.body.email,
       password: hashedPassword,
