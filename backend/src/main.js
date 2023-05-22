@@ -6,7 +6,13 @@ const passport = require("passport");
 const flash = require("express-flash");
 const session = require("express-session");
 const methodOverride = require("method-override");
-const date = require('date-and-time')
+const date = require('date-and-time');
+const mongoose = require('mongoose');
+
+mongoose.connect(process.env.DATABASE_URL);
+const db = mongoose.connection
+db.on('error', (error) => console.error(error))
+db.once('open', () => console.log("Connected to Database"));
 
 const initializePassport = require("./passport-config");
 initializePassport(
