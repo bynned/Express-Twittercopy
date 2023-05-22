@@ -15,5 +15,15 @@
         <textarea class="textarea" name="post" placeholder="What are you thinking?"></textarea>
         <button type="submit">Post</button>
     </form>
+    <br />
+    <div class="posts">
+        <% for (let i = 0; i < posts.length; i++) { %>
+          <div class="post">
+            <h2><%= posts[i].name %></h2>
+            <p><%= posts[i].content %></p>
+            <p><%= posts[i].timestamp %></p>
+          </div>
+        <% } %>
+      </div>
   </div>
 </html>
