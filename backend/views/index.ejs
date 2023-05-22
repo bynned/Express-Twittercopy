@@ -20,8 +20,10 @@
         <% for (let i = 0; i < posts.length; i++) { %>
           <div class="post">
             <h2><%= posts[i].name %></h2>
+            <div class="post-content">
             <p><%= posts[i].content %></p>
             <p><%= posts[i].timestamp %></p>
+            </div>
           </div>
         <% } %>
       </div>

@@ -6,6 +6,7 @@ const passport = require("passport");
 const flash = require("express-flash");
 const session = require("express-session");
 const methodOverride = require("method-override");
+const date = require('date-and-time')
 
 const initializePassport = require("./passport-config");
 initializePassport(
@@ -16,6 +17,9 @@ initializePassport(
 
 const users = [];
 const posts = [];
+const now  =  new Date();
+const UTC = date.addHours(now, 3);
+const dateNtime = date.format(UTC,'DD/MM/YYYY HH:mm:ss');
 
 app.set("view-engine", "ejs");
 app.use(express.static(__dirname + "/public"));
@@ -85,7 +89,7 @@ app.post('/', (req, res) => {
     const newPost = {
         name: req.body.name,
         content: postContect,
-        timestamp: new Date()
+        timestamp: dateNtime
     };
     posts.push(newPost);
     res.redirect('/');

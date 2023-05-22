@@ -35,6 +35,21 @@ code {
   color: red;
 }
 
+.posts {
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    background-color: #40e0d0;
+    align-items: center;
+  }
+
+  .post-content {
+    background-color: #39c9bb;
+    padding: 10px;
+    border-radius: 5px;
+
+  }
+
 .App {
   max-width: 600px;
   margin: 10px auto;
