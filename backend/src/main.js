@@ -78,17 +78,6 @@ app.post("/login", function (req, res) {
 	}
 });
 
-/*
-app.post(
-  "/login",
-  checkNotAuthenticated,
-  passport.authenticate("local", {
-    successRedirect: "/",
-    failureRedirect: "/login",
-    failureFlash: true,
-  })
-);
-*/
 app.get("/register", (req, res) => {
   res.render("register.ejs");
 });

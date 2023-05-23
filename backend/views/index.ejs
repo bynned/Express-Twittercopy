@@ -5,13 +5,13 @@
     <link href="/css/main.css" rel="stylesheet" type="text/css" />
   </head>
   <div class="App">
-    <h1>Welcome <%= name %></h1>
+    <h1>Welcome <%= username %></h1>
     <form action="/logout?_method=DELETE" method="POST">
         <button type="submit">Log Out</button>
     </form>
     <br />
     <form action="/" method="POST">
-        <input type="hidden" name="name" value="<%= name %>">
+        <input type="hidden" name="name" value="<%= username %>">
         <textarea class="textarea" name="post" placeholder="What are you thinking?"></textarea>
         <button type="submit">Post</button>
     </form>
