@@ -22,7 +22,7 @@ db.once('open', () => console.log("Connected to Database"));
 
 const now  =  new Date();
 const UTC = date.addHours(now, 3);
-const dateNtime = date.format(UTC,'DD/MM/YYYY HH:mm:ss');
+const dateNtime = date.format(UTC,'DD/MM/YYYY HH:mm:ss', true);
 
 app.set("view-engine", "ejs");
 app.use(express.static(__dirname + "/public"));
@@ -137,7 +137,7 @@ app.post('/', isAuthenticated, (req, res) => {
       });
 });
 
-app.get('/post/:postId', (req, res) => {
+app.get('/post/:postId', isAuthenticated, (req, res) => {
     const postId = req.params.postId;
 
     Post.findById(postId)
@@ -153,7 +153,7 @@ app.get('/post/:postId', (req, res) => {
       });
   });
 
-  app.post('/post/:postId', async (req, res) => {
+  app.post('/post/:postId', isAuthenticated, async (req, res) => {
     const postId = req.params.postId;
     const commentContent = req.body.content;
 
