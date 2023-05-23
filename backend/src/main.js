@@ -13,6 +13,8 @@ passport.use(new LocalStrategy(userdb.authenticate()));
 const jwt = require('jsonwebtoken');
 const Post = require('./models/posts')
 
+
+// Connect to database
 mongoose.connect(process.env.DATABASE_URL);
 const db = mongoose.connection
 db.on('error', (error) => console.error(error))
