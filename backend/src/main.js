@@ -9,20 +9,16 @@ const methodOverride = require("method-override");
 const date = require('date-and-time');
 const mongoose = require('mongoose');
 const { v4: uuidv4 } = require('uuid');
+const userdb = require('./models/users');
+const LocalStrategy = require('passport-local').Strategy;
+passport.use(new LocalStrategy(userdb.authenticate()));
+const jwt = require('jsonwebtoken');
 
 mongoose.connect(process.env.DATABASE_URL);
 const db = mongoose.connection
 db.on('error', (error) => console.error(error))
 db.once('open', () => console.log("Connected to Database"));
 
-const initializePassport = require("./passport-config");
-initializePassport(
-  passport,
-  (email) => users.find((user) => user.email === email),
-  (id) => users.find((user) => user.id === id)
-);
-
-const users = [];
 const posts = [];
 const now  =  new Date();
 const UTC = date.addHours(now, 3);
@@ -41,16 +37,48 @@ app.use(
 );
 app.use(passport.initialize());
 app.use(passport.session());
+passport.serializeUser(userdb.serializeUser());
+passport.deserializeUser(userdb.deserializeUser());
 app.use(methodOverride("_method"));
 
-app.get("/", checkAuthenticated, (req, res) => {
-  res.render("index.ejs", { name: req.user.name, posts: posts });
+app.get("/", (req, res) => {
+    const username = req.session.username;
+  res.render("index.ejs", { name: username, posts: posts });
 });
 
-app.get("/login", checkNotAuthenticated, (req, res) => {
+app.get("/login", (req, res) => {
   res.render("login.ejs");
 });
 
+app.post("/login", function (req, res) {
+    let secretkey = process.env.JWT_SECRET_KEY;
+	if (!req.body.username) {
+		res.json({ success: false, message: "Username was not given" })
+	}
+	else if (!req.body.password) {
+		res.json({ success: false, message: "Password was not given" })
+	}
+	else {
+		passport.authenticate("local", function (err, user, info) {
+			if (err) {
+                console.log(err);
+				res.json({ success: false, message: err });
+			}
+			else {
+				if (!user) {
+					res.json({ success: false, message: "username or password incorrect" });
+				}
+				else {
+                    req.session.username = user.username;
+					const token = jwt.sign({ userId: user._id, username: user.username }, secretkey, { expiresIn: "24h" });
+					res.redirect("/");
+				}
+			}
+		})(req, res);
+	}
+});
+
+/*
 app.post(
   "/login",
   checkNotAuthenticated,
@@ -60,25 +88,26 @@ app.post(
     failureFlash: true,
   })
 );
-
-app.get("/register", checkNotAuthenticated, (req, res) => {
+*/
+app.get("/register", (req, res) => {
   res.render("register.ejs");
 });
 
-app.post("/register", checkNotAuthenticated, async (req, res) => {
-  try {
-    const hashedPassword = await bcrypt.hash(req.body.password, 10);
-    users.push({
-      id: uuidv4(),
-      name: req.body.name,
-      email: req.body.email,
-      password: hashedPassword,
+app.post("/register", function (req, res) {
+    userdb.register(new userdb({ email: req.body.email, username: req.body.username }), req.body.password, function (err, user) {
+        if (err) {
+            res.status(500).json({ message: "Your account could not be saved. Error: " + err });
+        } else {
+            req.login(user, (er) => {
+                if (er) {
+                    res.redirect("/register");
+                }
+                else {
+                    res.redirect("/login");
+                }
+            });
+        }
     });
-    res.redirect("/login");
-  } catch {
-    res.redirect("/register");
-  }
-  console.log(users);
 });
 
 app.delete("/logout", (req, res) => {
@@ -103,18 +132,5 @@ app.post('/', (req, res) => {
     console.log(posts);
 });
 
-function checkAuthenticated(req, res, next) {
-  if (req.isAuthenticated()) {
-    return next();
-  }
-  res.redirect("/login");
-}
-
-function checkNotAuthenticated(req, res, next) {
-  if (req.isAuthenticated()) {
-    return res.redirect("/");
-  }
-  next();
-}
 
 app.listen(4040);
