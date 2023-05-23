@@ -1,14 +1,12 @@
 require("dotenv").config();
 const express = require("express");
 const app = express();
-const bcrypt = require("bcryptjs");
 const passport = require("passport");
 const flash = require("express-flash");
 const session = require("express-session");
 const methodOverride = require("method-override");
 const date = require('date-and-time');
 const mongoose = require('mongoose');
-const { v4: uuidv4 } = require('uuid');
 const userdb = require('./models/users');
 const LocalStrategy = require('passport-local').Strategy;
 passport.use(new LocalStrategy(userdb.authenticate()));
@@ -20,7 +18,6 @@ const db = mongoose.connection
 db.on('error', (error) => console.error(error))
 db.once('open', () => console.log("Connected to Database"));
 
-const posts = [];
 const now  =  new Date();
 const UTC = date.addHours(now, 3);
 const dateNtime = date.format(UTC,'DD/MM/YYYY HH:mm:ss');
