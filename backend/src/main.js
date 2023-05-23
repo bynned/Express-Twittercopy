@@ -128,14 +128,30 @@ app.post('/', isAuthenticated, (req, res) => {
 
     newPost.save()
       .then(() => {
-        console.log('Post saved to MongoDB:', newPost);
+        console.log('Post saved:', newPost);
         res.redirect('/');
       })
       .catch((error) => {
-        console.error('Error saving post to MongoDB:', error);
+        console.error('Error saving post:', error);
         res.redirect('/');
       });
 });
+
+app.get('/post/:postId', (req, res) => {
+    const postId = req.params.postId;
+
+    Post.findById(postId)
+      .then((post) => {
+        if (!post) {
+          return res.status(404).send('Post not found');
+        }
+        res.render('post.ejs', { post: post });
+      })
+      .catch((error) => {
+        console.error(error);
+        res.status(500).send('Internal Server Error');
+      });
+  });
 
 
 // Here we check weather the user is authenticated or not. I had this before but there was some "problems"

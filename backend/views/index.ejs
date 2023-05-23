@@ -23,6 +23,7 @@
             <div class="post-content">
               <p><%= post.content %></p>
               <p><%= post.timestamp %></p>
+              <a href="/post/<%= post._id %>"><button>Open Post</button></a>
             </div>
           </div>
         <% }); %>

@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Post - <%= post.username %></title>
+  <link href="/css/main.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div class="App">
+  <h1>Post by <%= post.username %></h1>
+  <div class="post">
+    <h2><%= post.username %></h2>
+    <div class="post-content">
+      <p><%= post.content %></p>
+      <p><%= post.timestamp %></p>
+    </div>
+  </div>
+</div>
+</body>
+</html>
