@@ -11,21 +11,22 @@
     </form>
     <br />
     <form action="/" method="POST">
-        <input type="hidden" name="name" value="<%= username %>">
+        <input type="hidden" name="username" value="<%= username %>">
         <textarea class="textarea" name="post" placeholder="What are you thinking?"></textarea>
         <button type="submit">Post</button>
     </form>
     <br />
     <div class="posts">
-        <% for (let i = 0; i < posts.length; i++) { %>
+        <% posts.forEach((post) => { %>
           <div class="post">
-            <h2><%= posts[i].name %></h2>
+            <h2><%= post.username %></h2>
             <div class="post-content">
-            <p><%= posts[i].content %></p>
-            <p><%= posts[i].timestamp %></p>
+              <p><%= post.content %></p>
+              <p><%= post.timestamp %></p>
             </div>
           </div>
-        <% } %>
+        <% }); %>
       </div>
+
   </div>
 </html>

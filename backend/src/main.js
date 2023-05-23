@@ -13,6 +13,7 @@ const userdb = require('./models/users');
 const LocalStrategy = require('passport-local').Strategy;
 passport.use(new LocalStrategy(userdb.authenticate()));
 const jwt = require('jsonwebtoken');
+const Post = require('./models/posts')
 
 mongoose.connect(process.env.DATABASE_URL);
 const db = mongoose.connection
@@ -41,10 +42,19 @@ passport.serializeUser(userdb.serializeUser());
 passport.deserializeUser(userdb.deserializeUser());
 app.use(methodOverride("_method"));
 
-app.get("/", (req, res) => {
-    const username = req.session.username;
-  res.render("index.ejs", { name: username, posts: posts });
-});
+app.get('/', isAuthenticated,  (req, res) => {
+    Post.find()
+      .sort({ timestamp: -1 })
+      .then((posts) => {
+        const username = req.session.username;
+        res.render('index.ejs', { username: username, posts: posts });
+      })
+      .catch((error) => {
+        console.error('Error fetching posts from MongoDB:', error);
+        const username = req.session.username;
+        res.render('index.ejs', { username: username, posts: [] });
+      });
+  });
 
 app.get("/login", (req, res) => {
   res.render("login.ejs");
@@ -108,18 +118,46 @@ app.delete("/logout", (req, res) => {
   });
 });
 
-app.post('/', (req, res) => {
-    const postContect = req.body.post;
+app.post('/', isAuthenticated, (req, res) => {
+    const postContent = req.body.post;
 
-    const newPost = {
-        name: req.body.name,
-        content: postContect,
-        timestamp: dateNtime
-    };
-    posts.push(newPost);
-    res.redirect('/');
-    console.log(posts);
+    const newPost = new Post({
+      username: req.session.username,
+      content: postContent,
+      timestamp: dateNtime,
+    });
+
+    newPost.save()
+      .then(() => {
+        console.log('Post saved to MongoDB:', newPost);
+        res.redirect('/');
+      })
+      .catch((error) => {
+        console.error('Error saving post to MongoDB:', error);
+        res.redirect('/');
+      });
 });
+
+
+// Here we check weather the user is authenticated or not. I had this before but there was some "problems"
+// The original function AND the way it's supposed to be done by the documentation:
+/*
+function isAuthenticated(req, res, next) {
+  if (req.isAuthenticated()) {
+    return next();
+  }
+  res.redirect("/login");
+}
+But this isAuthenticated middleware only checks wather req.user is set or not. and i wasn't setting it anywhere
+So i modified the function to be req.session and req.session.username because thats what ive been using in other functions
+*/
+function isAuthenticated(req, res, next) {
+    if (req.session && req.session.username) {
+        return next();
+    }
+    res.redirect('/login');
+}
+
 
 
 app.listen(4040);
