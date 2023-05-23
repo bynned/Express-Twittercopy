@@ -17,7 +17,23 @@ const postsSchema = new mongoose.Schema({
     timestamp: {
         type: String,
         default: dateNtime
-    }
+    },
+    comments: [
+        {
+          username: {
+            type: String,
+            required: true,
+          },
+          content: {
+            type: String,
+            required: true,
+          },
+          timestamp: {
+            type: String,
+            required: true,
+          },
+        },
+      ],
 });
 
 module.exports = mongoose.model('posts', postsSchema)

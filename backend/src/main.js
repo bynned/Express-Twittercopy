@@ -153,6 +153,33 @@ app.get('/post/:postId', (req, res) => {
       });
   });
 
+  app.post('/post/:postId', async (req, res) => {
+    const postId = req.params.postId;
+    const commentContent = req.body.content;
+
+    try {
+      const post = await Post.findById(postId);
+
+      if (!post) {
+        return res.status(404).json({ error: 'Post not found' });
+      }
+
+      const comment = {
+        username: req.session.username,
+        content: commentContent,
+        timestamp: dateNtime,
+      };
+      post.comments.push(comment);
+
+      await post.save();
+
+      res.redirect(`/post/${postId}`);
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: 'Server error' });
+    }
+  });
+
 
 // Here we check weather the user is authenticated or not. I had this before but there was some "problems"
 // The original function AND the way it's supposed to be done by the documentation:
