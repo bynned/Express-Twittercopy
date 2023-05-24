@@ -5,14 +5,14 @@ const passport = require("passport");
 const flash = require("express-flash");
 const session = require("express-session");
 const methodOverride = require("method-override");
-const date = require('date-and-time');
 const mongoose = require('mongoose');
 const userdb = require('./models/users');
 const LocalStrategy = require('passport-local').Strategy;
 passport.use(new LocalStrategy(userdb.authenticate()));
-const jwt = require('jsonwebtoken');
 const Post = require('./models/posts');
 const loginRouter = require('./routes/loginRouter');
+const registerRouter = require('./routes/registerRouter');
+const postRouter = require('./routes/postRouter');
 
 
 // Connect to database
@@ -20,10 +20,6 @@ mongoose.connect(process.env.DATABASE_URL);
 const db = mongoose.connection
 db.on('error', (error) => console.error(error))
 db.once('open', () => console.log("Connected to Database"));
-
-const now  =  new Date();
-const UTC = date.addHours(now, 3);
-const dateNtime = date.format(UTC,'DD/MM/YYYY HH:mm:ss', true);
 
 app.set("view-engine", "ejs");
 app.use(express.static(__dirname + "/public"));
@@ -43,6 +39,8 @@ passport.deserializeUser(userdb.deserializeUser());
 app.use(methodOverride("_method"));
 
 app.use(loginRouter);
+app.use(registerRouter);
+app.use(postRouter);
 
 app.get('/', isAuthenticated,  (req, res) => {
     Post.find()
@@ -66,23 +64,6 @@ app.get("/register", (req, res) => {
   res.render("register.ejs");
 });
 
-app.post("/register", function (req, res) {
-    userdb.register(new userdb({ email: req.body.email, username: req.body.username }), req.body.password, function (err, user) {
-        if (err) {
-            res.status(500).json({ message: "Your account could not be saved. Error: " + err });
-        } else {
-            req.login(user, (er) => {
-                if (er) {
-                    res.redirect("/register");
-                }
-                else {
-                    res.redirect("/login");
-                }
-            });
-        }
-    });
-});
-
 app.delete("/logout", (req, res) => {
   req.logOut(function (err) {
     if (err) {
@@ -91,69 +72,6 @@ app.delete("/logout", (req, res) => {
     res.redirect("/login");
   });
 });
-
-app.post('/', isAuthenticated, (req, res) => {
-    const postContent = req.body.post;
-
-    const newPost = new Post({
-      username: req.session.username,
-      content: postContent,
-      timestamp: dateNtime,
-    });
-
-    newPost.save()
-      .then(() => {
-        console.log('Post saved:', newPost);
-        res.redirect('/');
-      })
-      .catch((error) => {
-        console.error('Error saving post:', error);
-        res.redirect('/');
-      });
-});
-
-app.get('/post/:postId', isAuthenticated, (req, res) => {
-    const postId = req.params.postId;
-
-    Post.findById(postId)
-      .then((post) => {
-        if (!post) {
-          return res.status(404).send('Post not found');
-        }
-        res.render('post.ejs', { post: post });
-      })
-      .catch((error) => {
-        console.error(error);
-        res.status(500).send('Internal Server Error');
-      });
-  });
-
-  app.post('/post/:postId', isAuthenticated, async (req, res) => {
-    const postId = req.params.postId;
-    const commentContent = req.body.content;
-
-    try {
-      const post = await Post.findById(postId);
-
-      if (!post) {
-        return res.status(404).json({ error: 'Post not found' });
-      }
-
-      const comment = {
-        username: req.session.username,
-        content: commentContent,
-        timestamp: dateNtime,
-      };
-      post.comments.push(comment);
-
-      await post.save();
-
-      res.redirect(`/post/${postId}`);
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({ error: 'Server error' });
-    }
-  });
 
 
 // Here we check weather the user is authenticated or not. I had this before but there was some "problems"

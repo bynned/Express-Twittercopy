@@ -4,9 +4,6 @@ const passport = require("passport");
 const jwt = require('jsonwebtoken');
 const userdb = require('.././models/users');
 
-
-
-
 router.post("/login", function (req, res) {
     let secretkey = process.env.JWT_SECRET_KEY;
 	if (!req.body.username) {
