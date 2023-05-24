@@ -3,11 +3,14 @@
 The idea is to make a twitter like social media platform!
 
 ## How to install:
-
->Git clone repo
-<br />
->npm install in "backend" dir
-<br />
+>Git clone
+```
+git clone git@github.com:bynned/Express-Twittercopy.git
+```
+>install dependencies in "backend" dir
+```
+npm install
+```
 >create a .env file in "backend" dir containing this information:
 ```
 DATABASE_URL="Your database URL"
