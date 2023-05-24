@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="/css/main.css" rel="stylesheet" type="text/css">
+    <title> Forum - <%= username %></title>
+</head>
+<body>
+    <div class="App">
+        <h1><%= username %>'s Profile</h1>
+        <br />
+        <h2>Check out <%= username %>'s posts!</h2>
+        <div class="posts">
+            <% posts.forEach((post) => { %>
+              <div class="post">
+                <h2><%= post.username %></h2>
+                <div class="post-content">
+                  <p><%= post.content %></p>
+                  <p><%= post.timestamp %></p>
+                  <a href="/post/<%= post._id %>"><button>Open Post</button></a>
+                </div>
+              </div>
+            <% }); %>
+          </div>
+    </div>
+</body>
+</html>

@@ -13,6 +13,7 @@ const Post = require('./models/posts');
 const loginRouter = require('./routes/loginRouter');
 const registerRouter = require('./routes/registerRouter');
 const postRouter = require('./routes/postRouter');
+const profileRouter = require('./routes/profileRouter');
 
 
 // Connect to database
@@ -41,6 +42,7 @@ app.use(methodOverride("_method"));
 app.use(loginRouter);
 app.use(registerRouter);
 app.use(postRouter);
+app.use(profileRouter);
 
 app.get('/', isAuthenticated,  (req, res) => {
     Post.find()

@@ -6,9 +6,14 @@
   </head>
   <div class="App">
     <h1>Welcome <%= username %></h1>
+    <div class="button-container">
     <form action="/logout?_method=DELETE" method="POST">
         <button type="submit">Log Out</button>
     </form>
+    <form action="/profile/<%= username %>" method="GET">
+      <button type="submit">My profile</button>
+    </form>
+    </div>
     <br />
     <form action="/" method="POST">
         <input type="hidden" name="username" value="<%= username %>">

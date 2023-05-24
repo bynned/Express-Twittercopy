@@ -6,7 +6,7 @@
 </head>
 <body>
 <div class="App">
-  <h1>Post by <%= post.username %></h1>
+  <h1>Post by <a href="/profile/<%= post.username %>"><%= post.username %></a></h1>
   <div class="post">
     <div class="post-content">
       <p><%= post.content %></p>
