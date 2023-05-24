@@ -11,7 +11,8 @@ const userdb = require('./models/users');
 const LocalStrategy = require('passport-local').Strategy;
 passport.use(new LocalStrategy(userdb.authenticate()));
 const jwt = require('jsonwebtoken');
-const Post = require('./models/posts')
+const Post = require('./models/posts');
+const loginRouter = require('./routes/loginRouter');
 
 
 // Connect to database
@@ -41,6 +42,8 @@ passport.serializeUser(userdb.serializeUser());
 passport.deserializeUser(userdb.deserializeUser());
 app.use(methodOverride("_method"));
 
+app.use(loginRouter);
+
 app.get('/', isAuthenticated,  (req, res) => {
     Post.find()
       .sort({ timestamp: -1 })
@@ -57,34 +60,6 @@ app.get('/', isAuthenticated,  (req, res) => {
 
 app.get("/login", (req, res) => {
   res.render("login.ejs");
-});
-
-app.post("/login", function (req, res) {
-    let secretkey = process.env.JWT_SECRET_KEY;
-	if (!req.body.username) {
-		res.json({ success: false, message: "Username was not given" })
-	}
-	else if (!req.body.password) {
-		res.json({ success: false, message: "Password was not given" })
-	}
-	else {
-		passport.authenticate("local", function (err, user, info) {
-			if (err) {
-                console.log(err);
-				res.json({ success: false, message: err });
-			}
-			else {
-				if (!user) {
-					res.json({ success: false, message: "username or password incorrect" });
-				}
-				else {
-                    req.session.username = user.username;
-					const token = jwt.sign({ userId: user._id, username: user.username }, secretkey, { expiresIn: "24h" });
-					res.redirect("/");
-				}
-			}
-		})(req, res);
-	}
 });
 
 app.get("/register", (req, res) => {
