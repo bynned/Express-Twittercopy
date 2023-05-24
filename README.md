@@ -5,7 +5,9 @@ The idea is to make a twitter like social media platform!
 ## How to install:
 
 >Git clone repo
+<br />
 >npm install in "backend" dir
+<br />
 >create a .env file in "backend" dir containing this information:
 ```
 DATABASE_URL="Your database URL"
