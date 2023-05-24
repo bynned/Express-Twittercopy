@@ -36,6 +36,14 @@ code {
 .header-link:visited {
   color: black;
 }
+
+.post-username-link {
+  color: black;
+}
+
+.post-username-link:visited {
+  color: black;
+}
 .textarea {
     padding: 10px;
     border: 1px solid #ddd;
