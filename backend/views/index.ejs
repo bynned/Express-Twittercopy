@@ -6,36 +6,39 @@
   </head>
   <a href="/" class="header-link">
     <h1 class="header-title">Forum</h1>
-</a>      
+  </a>
   <div class="App">
     <h1>Welcome <%= username %></h1>
     <div class="button-container">
-    <form action="/logout?_method=DELETE" method="POST">
+      <form action="/logout?_method=DELETE" method="POST">
         <button type="submit">Log Out</button>
-    </form>
-    <form action="/profile/<%= username %>" method="GET">
-      <button type="submit">My profile</button>
-    </form>
+      </form>
+      <form action="/profile/<%= username %>" method="GET">
+        <button type="submit">My profile</button>
+      </form>
     </div>
     <br />
     <form action="/" method="POST">
-        <input type="hidden" name="username" value="<%= username %>">
-        <textarea class="textarea" name="post" placeholder="What are you thinking?"></textarea>
-        <button type="submit">Post</button>
+      <input type="hidden" name="username" value="<%= username %>" />
+      <textarea
+        class="textarea"
+        name="post"
+        placeholder="What are you thinking?"
+      ></textarea>
+      <button type="submit">Post</button>
     </form>
     <br />
     <div class="posts">
-        <% posts.forEach((post) => { %>
-          <div class="post">
-            <h2><%= post.username %></h2>
-            <div class="post-content">
-              <p><%= post.content %></p>
-              <p><%= post.timestamp %></p>
-              <a href="/post/<%= post._id %>"><button>Open Post</button></a>
-            </div>
-          </div>
-        <% }); %>
+      <% posts.forEach((post) => { %>
+      <div class="post">
+        <h2><%= post.username %></h2>
+        <div class="post-content">
+          <p><%= post.content %></p>
+          <p><%= post.timestamp %></p>
+          <a href="/post/<%= post._id %>"><button>Open Post</button></a>
+        </div>
       </div>
-
+      <% }); %>
+    </div>
   </div>
 </html>

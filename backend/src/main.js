@@ -5,22 +5,21 @@ const passport = require("passport");
 const flash = require("express-flash");
 const session = require("express-session");
 const methodOverride = require("method-override");
-const mongoose = require('mongoose');
-const userdb = require('./models/users');
-const LocalStrategy = require('passport-local').Strategy;
+const mongoose = require("mongoose");
+const userdb = require("./models/users");
+const LocalStrategy = require("passport-local").Strategy;
 passport.use(new LocalStrategy(userdb.authenticate()));
-const Post = require('./models/posts');
-const loginRouter = require('./routes/loginRouter');
-const registerRouter = require('./routes/registerRouter');
-const postRouter = require('./routes/postRouter');
-const profileRouter = require('./routes/profileRouter');
-
+const Post = require("./models/posts");
+const loginRouter = require("./routes/loginRouter");
+const registerRouter = require("./routes/registerRouter");
+const postRouter = require("./routes/postRouter");
+const profileRouter = require("./routes/profileRouter");
 
 // Connect to database
 mongoose.connect(process.env.DATABASE_URL);
-const db = mongoose.connection
-db.on('error', (error) => console.error(error))
-db.once('open', () => console.log("Connected to Database"));
+const db = mongoose.connection;
+db.on("error", (error) => console.error(error));
+db.once("open", () => console.log("Connected to Database"));
 
 app.set("view-engine", "ejs");
 app.use(express.static(__dirname + "/public"));
@@ -44,19 +43,19 @@ app.use(registerRouter);
 app.use(postRouter);
 app.use(profileRouter);
 
-app.get('/', isAuthenticated,  (req, res) => {
-    Post.find()
-      .sort({ timestamp: -1 })
-      .then((posts) => {
-        const username = req.session.username;
-        res.render('index.ejs', { username: username, posts: posts });
-      })
-      .catch((error) => {
-        console.error('Error fetching posts from MongoDB:', error);
-        const username = req.session.username;
-        res.render('index.ejs', { username: username, posts: [] });
-      });
-  });
+app.get("/", isAuthenticated, (req, res) => {
+  Post.find()
+    .sort({ timestamp: -1 })
+    .then((posts) => {
+      const username = req.session.username;
+      res.render("index.ejs", { username: username, posts: posts });
+    })
+    .catch((error) => {
+      console.error("Error fetching posts from MongoDB:", error);
+      const username = req.session.username;
+      res.render("index.ejs", { username: username, posts: [] });
+    });
+});
 
 app.get("/login", (req, res) => {
   res.render("login.ejs");
@@ -75,7 +74,6 @@ app.delete("/logout", (req, res) => {
   });
 });
 
-
 // Here we check weather the user is authenticated or not. I had this before but there was some "problems"
 // The original function AND the way it's supposed to be done by the documentation:
 /*
@@ -89,12 +87,10 @@ But this isAuthenticated middleware only checks wather req.user is set or not. a
 So i modified the function to be req.session and req.session.username because thats what ive been using in other functions
 */
 function isAuthenticated(req, res, next) {
-    if (req.session && req.session.username) {
-        return next();
-    }
-    res.redirect('/login');
+  if (req.session && req.session.username) {
+    return next();
+  }
+  res.redirect("/login");
 }
-
-
 
 app.listen(4040);
