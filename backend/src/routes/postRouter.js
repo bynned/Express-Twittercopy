@@ -8,6 +8,8 @@ const now = new Date();
 const UTC = date.addHours(now, 3);
 const dateNtime = date.format(UTC, "DD/MM/YYYY HH:mm:ss", true);
 
+
+// This is for posting a new post :)
 router.post("/", isAuthenticated, (req, res) => {
   const postContent = req.body.post;
 
@@ -29,6 +31,7 @@ router.post("/", isAuthenticated, (req, res) => {
     });
 });
 
+// This is for when opening a post in the '/' route. It will then render the post.ejs
 router.get("/post/:postId", isAuthenticated, (req, res) => {
   const postId = req.params.postId;
 

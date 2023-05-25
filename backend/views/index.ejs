@@ -35,7 +35,12 @@
         <div class="post-content">
           <p><%= post.content %></p>
           <p><%= post.timestamp %></p>
+          <div class="post-stats">
           <a href="/post/<%= post._id %>"><button>Open Post</button></a>
+          <p>Likes: <%= post.likedBy.length %></p>
+          <p>Dislikes: <%= post.dislikedBy.length %>
+          <p>Comments: <%= post.comments.length %></p>
+          </div>
         </div>
       </div>
       <% }); %>

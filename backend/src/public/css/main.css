@@ -95,7 +95,18 @@ code {
     border-radius: 5px;
 
   }
-
+  .post-stats button {
+    margin-right: 160px;
+  }
+  .post-stats {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+  }
+  
+  .post-stats p {
+    margin-right: 20px;
+  }
 .App {
   max-width: 600px;
   margin: 10px auto;
