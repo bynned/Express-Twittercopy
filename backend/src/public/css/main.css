@@ -18,6 +18,18 @@ code {
     border: 1px solid #ddd;
 }
 
+.like-number {
+  display: flex;
+  justify-content: center;
+  color: green;
+}
+
+.dislike-number {
+  display: flex;
+  justify-content: center;
+  color: red;
+}
+
 .header-title {
   display: flex;
   justify-content: center;
