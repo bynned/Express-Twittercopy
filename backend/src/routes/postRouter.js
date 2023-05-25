@@ -84,6 +84,18 @@ router.post("/post/:postId/like", isAuthenticated, async (req, res) => {
   }
 });
 
+router.post("/post/:postId/dislike", isAuthenticated, async (req, res) => {
+  try {
+    const postId = req.params.postId;
+    const post = await Post.findById(postId);
+    post.dislikes += 1;
+    await post.save();
+    res.redirect(req.headers.referer)
+  } catch (error) {
+    res.status(500).send("Internal Server Error");
+  }
+});
+
 function isAuthenticated(req, res, next) {
   if (req.session && req.session.username) {
     return next();
