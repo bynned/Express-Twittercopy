@@ -20,15 +20,15 @@ const postsSchema = new mongoose.Schema({
   },
   likedBy: [
     {
-        type: String,
-        required: true,
-    }
+      type: String,
+      required: true,
+    },
   ],
   dislikedBy: [
     {
       type: String,
       required: true,
-    }
+    },
   ],
   comments: [
     {
@@ -44,6 +44,18 @@ const postsSchema = new mongoose.Schema({
         type: String,
         default: dateNtime,
       },
+      comlikedBy: [
+        {
+          type: String,
+          required: true,
+        },
+      ],
+      comdislikedBy: [
+        {
+          type: String,
+          required: true,
+        },
+      ],
     },
   ],
 });

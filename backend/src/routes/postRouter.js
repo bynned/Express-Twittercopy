@@ -45,6 +45,7 @@ router.get("/post/:postId", isAuthenticated, (req, res) => {
     });
 });
 
+// This is for posting a comment on a particular post
 router.post("/post/:postId", isAuthenticated, async (req, res) => {
   const postId = req.params.postId;
   const commentContent = req.body.content;
@@ -60,6 +61,8 @@ router.post("/post/:postId", isAuthenticated, async (req, res) => {
       username: req.session.username,
       content: commentContent,
       timestamp: dateNtime,
+      comlikedBy: [],
+      comdislikedBy: [],
     };
     post.comments.push(comment);
 
@@ -71,6 +74,64 @@ router.post("/post/:postId", isAuthenticated, async (req, res) => {
     res.status(500).json({ error: "Server error" });
   }
 });
+
+router.post("/post/:postId/:commentId/like", isAuthenticated, async (req, res) => {
+    try {
+      const postId = req.params.postId;
+      const commentId = req.params.commentId;
+
+      const post = await Post.findById(postId);
+      const comment = post.comments.id(commentId);
+
+      if (comment.comlikedBy.includes(req.session.username)) {
+        return res.redirect(req.headers.referer);
+      }
+      if (comment.comdislikedBy.includes(req.session.username)) {
+        // If the user has already liked the comment and decides to dislike it,
+        // It would take away the user from the comlikedBy array.
+        comment.comdislikedBy = comment.comdislikedBy.filter(
+          (user) => user !== req.session.username
+        );
+        comment.comlikedBy.push(req.session.username);
+      } else {
+        comment.comlikedBy.push(req.session.username);
+      }
+      await post.save();
+      res.redirect(req.headers.referer);
+    } catch (error) {
+      res.status(500).send("Internal Server Error");
+    }
+  }
+);
+
+router.post("/post/:postId/:commentId/dislike", isAuthenticated, async (req, res) => {
+  try {
+    const postId = req.params.postId;
+    const commentId = req.params.commentId;
+
+    const post = await Post.findById(postId);
+    const comment = post.comments.id(commentId);
+
+    if (comment.comdislikedBy.includes(req.session.username)) {
+      return res.redirect(req.headers.referer);
+    }
+    if (comment.comlikedBy.includes(req.session.username)) {
+      // If the user has already liked the comment and decides to like it,
+      // It would take away the user from the comdislikedBy array.
+      comment.comlikedBy = comment.comlikedBy.filter(
+        (user) => user !== req.session.username
+      );
+      comment.comdislikedBy.push(req.session.username);
+    } else {
+      comment.comdislikedBy.push(req.session.username);
+    }
+    await post.save();
+    res.redirect(req.headers.referer);
+  } catch (error) {
+    res.status(500).send("Internal Server Error");
+  }
+}
+);
 
 router.post("/post/:postId/like", isAuthenticated, async (req, res) => {
   try {

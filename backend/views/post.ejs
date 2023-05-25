@@ -46,6 +46,16 @@
           <h4><%= comment.username %></h4>
           <p><%= comment.content %></p>
           <p><%= comment.timestamp %></p>
+          <div class="button-container">
+          <form action="/post/<%= post._id %>/<%= comment._id %>/like" method="POST">
+            <p class="like-number"><%= comment.comlikedBy.length %></p>
+            <button>Like</button>
+          </form>
+          <form action="/post/<%= post._id %>/<%= comment._id %>/dislike" method="POST">
+            <p class="dislike-number"><%= comment.comdislikedBy.length %></p>
+            <button>Dislike</button>
+          </form>
+        </div>
         </div>
         <br />
         <% }); %>
