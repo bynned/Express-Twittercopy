@@ -72,6 +72,14 @@ router.post("/post/:postId", isAuthenticated, async (req, res) => {
   }
 });
 
+router.post("/post/:postId/like", async (req, res) => {
+  try {
+
+  } catch {
+    
+  }
+});
+
 function isAuthenticated(req, res, next) {
   if (req.session && req.session.username) {
     return next();
