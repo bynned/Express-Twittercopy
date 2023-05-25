@@ -19,11 +19,11 @@
         </div>
       </div>
       <div class="button-container">
-        <form>
+        <form action="/post/<%= post._id %>/like" method="POST">
           <button>Like</button>
           <p class="like-number"><%= post.likes %></p>
         </form>
-        <form>
+        <form action="/post/<%= post._id %>/dislike" method="POST">
           <button>Dislike</button>
           <pc class="dislike-number"><%= post.dislikes %></p>
         </form>
