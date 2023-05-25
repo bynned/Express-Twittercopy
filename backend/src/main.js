@@ -14,6 +14,7 @@ const loginRouter = require("./routes/loginRouter");
 const registerRouter = require("./routes/registerRouter");
 const postRouter = require("./routes/postRouter");
 const profileRouter = require("./routes/profileRouter");
+const likeNdislikeRouter = require("./routes/likeNdislikeRouter");
 
 // Connect to database
 mongoose.connect(process.env.DATABASE_URL);
@@ -42,6 +43,7 @@ app.use(loginRouter);
 app.use(registerRouter);
 app.use(postRouter);
 app.use(profileRouter);
+app.use(likeNdislikeRouter);
 
 app.get("/", isAuthenticated, (req, res) => {
   Post.find()
