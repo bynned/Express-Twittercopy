@@ -32,6 +32,12 @@ const postsSchema = new mongoose.Schema({
         required: true,
     }
   ],
+  dislikedBy: [
+    {
+      type: String,
+      required: true,
+    }
+  ],
   comments: [
     {
       username: {

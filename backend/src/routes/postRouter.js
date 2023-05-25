@@ -93,7 +93,12 @@ router.post("/post/:postId/dislike", isAuthenticated, async (req, res) => {
   try {
     const postId = req.params.postId;
     const post = await Post.findById(postId);
+    // Check if the user has already disliked the post
+    if (post.dislikedBy.includes(req.session.username)) {
+      return res.redirect(req.headers.referer);
+    }
     post.dislikes += 1;
+    post.dislikedBy.push(req.session.username);
     await post.save();
     res.redirect(req.headers.referer)
   } catch (error) {
