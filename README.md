@@ -35,7 +35,8 @@ npm run devStart
 
 ## TODO:
 - [x] Like or dislike posts
-- [ ] Like or dislike comments
+- [x] Like or dislike comments
+- [ ] Make the comments and likes and dislikes show on the index page when scrolling posts
 
 ## TBD:
 - [ ] The possibility to post pictures
