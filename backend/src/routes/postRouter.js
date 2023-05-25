@@ -80,10 +80,17 @@ router.post("/post/:postId/like", isAuthenticated, async (req, res) => {
     if (post.likedBy.includes(req.session.username)) {
       return res.redirect(req.headers.referer);
     }
-    post.likes += 1;
-    post.likedBy.push(req.session.username);
+    if (post.dislikedBy.includes(req.session.username)) {
+      // If the user has liked the post and decides to dislike, it will take the like away and add the dislike instead
+      post.dislikedBy = post.dislikedBy.filter(
+        (user) => user !== req.session.username
+      );
+      post.likedBy.push(req.session.username);
+    } else {
+      post.likedBy.push(req.session.username);
+    }
     await post.save();
-    res.redirect(req.headers.referer)
+    res.redirect(req.headers.referer);
   } catch (error) {
     res.status(500).send("Internal Server Error");
   }
@@ -97,10 +104,17 @@ router.post("/post/:postId/dislike", isAuthenticated, async (req, res) => {
     if (post.dislikedBy.includes(req.session.username)) {
       return res.redirect(req.headers.referer);
     }
-    post.dislikes += 1;
-    post.dislikedBy.push(req.session.username);
+    if (post.likedBy.includes(req.session.username)) {
+      // If the user has liked the post and decides to dislike, it will take the like away and add the dislike instead
+      post.likedBy = post.likedBy.filter(
+        (user) => user !== req.session.username
+      );
+      post.dislikedBy.push(req.session.username);
+    } else {
+      post.dislikedBy.push(req.session.username);
+    }
     await post.save();
-    res.redirect(req.headers.referer)
+    res.redirect(req.headers.referer);
   } catch (error) {
     res.status(500).send("Internal Server Error");
   }

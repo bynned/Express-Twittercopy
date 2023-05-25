@@ -21,11 +21,11 @@
       <div class="button-container">
         <form action="/post/<%= post._id %>/like" method="POST">
           <button>Like</button>
-          <p class="like-number"><%= post.likes %></p>
+          <p class="like-number"><%= post.likedBy.length %></p>
         </form>
         <form action="/post/<%= post._id %>/dislike" method="POST">
           <button>Dislike</button>
-          <p class="dislike-number"><%= post.dislikes %></p>
+          <p class="dislike-number"><%= post.dislikedBy.length %></p>
         </form>
       </div>
       <div class="comment-section">

@@ -18,14 +18,6 @@ const postsSchema = new mongoose.Schema({
     type: String,
     default: dateNtime,
   },
-  likes: {
-    type: Number,
-    default: 0,
-  },
-  dislikes: {
-    type: Number,
-    default: 0,
-  },
   likedBy: [
     {
         type: String,
