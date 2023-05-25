@@ -34,7 +34,7 @@ npm run devStart
 - [x] You can check other peoples profiles!
 
 ## TODO:
-- [ ] Like or dislike posts
+- [x] Like or dislike posts
 - [ ] Like or dislike comments
 
 ## TBD:
