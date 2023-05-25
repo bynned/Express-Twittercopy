@@ -72,14 +72,15 @@ router.post("/post/:postId", isAuthenticated, async (req, res) => {
   }
 });
 
-router.post("/post/:postId/like", async (req, res) => {
+router.post("/post/:postId/like", isAuthenticated, async (req, res) => {
   try {
     const postId = req.params.postId;
     const post = await Post.findById(postId);
     post.likes += 1;
     await post.save();
-  } catch {
-
+    res.redirect(req.headers.referer)
+  } catch (error) {
+    res.status(500).send("Internal Server Error");
   }
 });
 
