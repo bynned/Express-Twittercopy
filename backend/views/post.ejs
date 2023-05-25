@@ -18,6 +18,16 @@
           <p><%= post.timestamp %></p>
         </div>
       </div>
+      <div class="button-container">
+        <form>
+          <button>Like</button>
+          <p class="like-number"><%= post.likes %></p>
+        </form>
+        <form>
+          <button>Dislike</button>
+          <pc class="dislike-number"><%= post.dislikes %></p>
+        </form>
+      </div>
       <div class="comment-section">
         <h3>Add a Comment:</h3>
         <form action="/post/<%= post._id %>" method="POST">
