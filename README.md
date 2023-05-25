@@ -36,7 +36,8 @@ npm run devStart
 ## TODO:
 - [x] Like or dislike posts
 - [x] Like or dislike comments
-- [ ] Make the comments and likes and dislikes show on the index page when scrolling posts
+- [x] Make the comments and likes and dislikes show on the index page when scrolling posts
+- [ ] Make the page not refresh everytime i like a post or comment, because now always i end up in the top of the page because it refreshes
 
 ## TBD:
 - [ ] The possibility to post pictures
