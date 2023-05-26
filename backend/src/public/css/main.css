@@ -31,6 +31,18 @@ code {
   color: red;
 }
 
+.comlike-number {
+  display: flex;
+  justify-content: center;
+  color: green;
+}
+
+.comdislike-number {
+  display: flex;
+  justify-content: center;
+  color: red;
+}
+
 .header-title {
   display: flex;
   justify-content: center;
@@ -103,7 +115,7 @@ code {
     align-items: center;
     margin-top: 10px;
   }
-  
+
   .post-stats p {
     margin-right: 20px;
   }

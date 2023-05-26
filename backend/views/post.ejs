@@ -50,12 +50,12 @@
           <p><%= comment.content %></p>
           <p><%= comment.timestamp %></p>
           <div class="button-container">
-              <p class="like-number"><%= comment.comlikedBy.length %></p>
-              <button class="like-button" id="comlike-button" data-commentid="<%= comment._id %>">
+              <p class="comlike-number"><%= comment.comlikedBy.length %></p>
+              <button class="comlike-button" id="comlike-button" data-commentid="<%= comment._id %>">
                 Like
               </button>
-              <p class="dislike-number"><%= comment.comdislikedBy.length %></p>
-              <button class="dislike-button" id="comdislike-button" data-commentid="<%= comment._id %>">
+              <p class="comdislike-number"><%= comment.comdislikedBy.length %></p>
+              <button class="comdislike-button" id="comdislike-button" data-commentid="<%= comment._id %>">
                 Dislike
               </button>
           </div>
