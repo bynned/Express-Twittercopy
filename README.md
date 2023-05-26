@@ -32,6 +32,7 @@ npm run devStart
 - [x] User profile
 - [x] You can open other peoples posts and comment on them
 - [x] You can check other peoples profiles!
+- [x] You can like and dislike posts and comments 
 
 ## TODO:
 - [x] Like or dislike posts
