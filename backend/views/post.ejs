@@ -44,18 +44,18 @@
       </div>
       <div class="comments">
         <h3>Comments:</h3>
-        <% post.comments.forEach(function(comment) { %>
+        <% post.comments.forEach(function(comment, index) { %>
         <div class="comment">
          <div class="comment-content">
           <h4><%= comment.username %></h4>
           <p><%= comment.content %></p>
           <p><%= comment.timestamp %></p>
           <div class="button-container">
-              <button class="comlike-button" id="comlike-button" data-commentid="<%= comment._id %>">
+              <button class="comlike-button" id="comlike-button" data-commentid="<%= comment._id %>" data-postid="<%= post._id %>">
                 <img src="/icons/thumbs-up-svgrepo-com.svg" alt="Like" class="icon">
               </button>
               <p class="comlike-number"><%= comment.comlikedBy.length %></p>
-              <button class="comdislike-button" id="comdislike-button" data-commentid="<%= comment._id %>">
+              <button class="comdislike-button" id="comdislike-button" data-commentid="<%= comment._id %>" data-postid="<%= post._id %>">
                 <img src="/icons/thumbs-down-svgrepo-com.svg" alt="Dislike" class="icon">
               </button>
               <p class="comdislike-number"><%= comment.comdislikedBy.length %></p>

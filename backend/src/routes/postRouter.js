@@ -1,7 +1,6 @@
 const express = require("express");
 const router = express.Router();
 const Post = require("../models/posts");
-
 const date = require("date-and-time");
 
 // This is for posting a new post :)
@@ -69,6 +68,9 @@ router.post("/post/:postId", isAuthenticated, async (req, res) => {
       comdislikedBy: [],
     };
     post.comments.push(comment);
+
+    // Sort the comments from most popular (most likes) to the least amount of likes
+    post.comments.sort((a, b) => b.comlikedBy.length - a.comlikedBy.length);
 
     await post.save();
 
