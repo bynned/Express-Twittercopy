@@ -37,7 +37,30 @@ router.get("/post/:postId", isAuthenticated, (req, res) => {
       if (!post) {
         return res.status(404).send("Post not found");
       }
-      res.render("post.ejs", { post: post });
+      const sortedComments = post.comments.sort((a, b) => {
+        return b.comlikedBy.length - a.comlikedBy.length;
+      });
+      res.render("post.ejs", { post: post, comments: sortedComments, newest: false });
+    })
+    .catch((error) => {
+      console.error(error);
+      res.status(500).send("Internal Server Error");
+    });
+});
+
+// This is for when opening a post in the '/' route. It will then render the post.ejs
+router.get("/post/:postId/newest", isAuthenticated, (req, res) => {
+  const postId = req.params.postId;
+
+  Post.findById(postId)
+    .then((post) => {
+      if (!post) {
+        return res.status(404).send("Post not found");
+      }
+      const sortedComments = post.comments.sort((a, b) => {
+        return new Date(b.timestamp) - new Date(a.timestamp);
+      });
+      res.render("post.ejs", { post: post, comments: sortedComments, newest: true });
     })
     .catch((error) => {
       console.error(error);

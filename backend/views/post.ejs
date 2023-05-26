@@ -46,14 +46,19 @@
         <div class="comment-title-and-dropdown">
         <h3>Comments:</h3>
         <div class="sort-comments-dropdown">
-          <button onclick="sortComments()" class="dropbtn">Sort</button>
+          <button onclick="sortComments()" id="sort-comments-button" class="dropbtn" data-postid="<%= post._id %>">Sort</button>
           <div id="sort-comments" class="dropdown-content">
-            <a href="#">Newest</a>
-            <a href="#">Popular</a>
+            <% if (newest) { %>
+              <a href="http://localhost:4040/post/<%= post._id %>/newest" class="selected">Newest</a>
+              <a href="http://localhost:4040/post/<%= post._id %>">Popular</a>
+            <% } else { %>
+              <a href="http://localhost:4040/post/<%= post._id %>/newest">Newest</a>
+              <a href="http://localhost:4040/post/<%= post._id %>" class="selected">Popular</a>
+            <% } %>
           </div>
         </div>
       </div>
-        <% post.comments.sort((a, b) => b.comlikedBy.length - a.comlikedBy.length).forEach(function(comment, index) { %>
+      <% post.comments.forEach(function(comment, index) { %>
         <div class="comment">
          <div class="comment-content">
           <h4><%= comment.username %></h4>

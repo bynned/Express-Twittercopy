@@ -8,8 +8,6 @@ const likeButton = document.getElementById("like-button");
 const dislikeCount = document.querySelector(".dislike-number");
 const likeCount = document.querySelector(".like-number");
 const dislikeButton = document.getElementById("dislike-button");
-let liked = null;
-let disliked = null;
 
 likeButton.addEventListener("click", () => {
   const postId = likeButton.getAttribute("data-postid");
