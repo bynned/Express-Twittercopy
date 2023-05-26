@@ -116,6 +116,24 @@ router.post("/post/:postId/dislike", isAuthenticated, async (req, res) => {
   }
 });
 
+// This is for the frontend to get and see if the user has already liked or disliked the post
+// To tackle the problem of lets say the post-stats were Likes:1 Dislikes:0 i can like it again so it will become
+// Likes:2 Dislikes:0, but ofcourse if i refresh it stays at 1-0 because the router.post function won't let it like twice.
+router.get("/post/:postId/like", isAuthenticated, async (req, res) => {
+  try {
+    const postId = req.params.postId;
+    const post = await Post.findById(postId);
+
+    const hasLiked = post.likedBy.includes(req.session.username);
+
+    const hasDisliked = post.dislikedBy.includes(req.session.username);
+    // So here we return a boolean if the user has liked or disliked the post
+    res.status(200).json({ hasLiked, hasDisliked });
+  } catch (error) {
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
 function isAuthenticated(req, res, next) {
   if (req.session && req.session.username) {
     return next();
