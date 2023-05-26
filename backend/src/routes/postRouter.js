@@ -69,9 +69,6 @@ router.post("/post/:postId", isAuthenticated, async (req, res) => {
     };
     post.comments.push(comment);
 
-    // Sort the comments from most popular (most likes) to the least amount of likes
-    post.comments.sort((a, b) => b.comlikedBy.length - a.comlikedBy.length);
-
     await post.save();
 
     res.redirect(`/post/${postId}`);
