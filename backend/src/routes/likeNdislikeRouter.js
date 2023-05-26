@@ -11,7 +11,7 @@ router.post("/post/:postId/:commentId/like", isAuthenticated, async (req, res) =
       const comment = post.comments.id(commentId);
 
       if (comment.comlikedBy.includes(req.session.username)) {
-        return res.redirect(req.headers.referer);
+        return res.status(200).json({ message: "you already liked this comment" });
       }
       if (comment.comdislikedBy.includes(req.session.username)) {
         // If the user has already liked the comment and decides to dislike it,
@@ -24,7 +24,7 @@ router.post("/post/:postId/:commentId/like", isAuthenticated, async (req, res) =
         comment.comlikedBy.push(req.session.username);
       }
       await post.save();
-      res.redirect(req.headers.referer);
+      res.status(201).json({ message: "you liked this comment" });
     } catch (error) {
       res.status(500).send("Internal Server Error");
     }
@@ -40,7 +40,7 @@ router.post("/post/:postId/:commentId/dislike", isAuthenticated, async (req, res
     const comment = post.comments.id(commentId);
 
     if (comment.comdislikedBy.includes(req.session.username)) {
-      return res.redirect(req.headers.referer);
+      return res.status(200).json({ message: "you already disliked this comment" });
     }
     if (comment.comlikedBy.includes(req.session.username)) {
       // If the user has already liked the comment and decides to like it,
@@ -53,7 +53,7 @@ router.post("/post/:postId/:commentId/dislike", isAuthenticated, async (req, res
       comment.comdislikedBy.push(req.session.username);
     }
     await post.save();
-    res.redirect(req.headers.referer);
+    res.status(201).json({ message: "you disliked this comment" });
   } catch (error) {
     res.status(500).send("Internal Server Error");
   }
