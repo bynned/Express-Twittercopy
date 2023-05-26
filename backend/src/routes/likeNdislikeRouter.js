@@ -64,12 +64,15 @@ router.post("/post/:postId/like", isAuthenticated, async (req, res) => {
   try {
     const postId = req.params.postId;
     const post = await Post.findById(postId);
-    //  Let's check if the user liking the post has already liked it.
+
+    // Check if the user has already liked the post
     if (post.likedBy.includes(req.session.username)) {
-      return res.redirect(req.headers.referer);
+      return res.status(200).json({ message: "you already liked this post" });
     }
+
     if (post.dislikedBy.includes(req.session.username)) {
-      // If the user has liked the post and decides to dislike, it will take the like away and add the dislike instead
+      // If the user has already disliked the post and decides to like it,
+      // It would take away the user from the dislikedBy array.
       post.dislikedBy = post.dislikedBy.filter(
         (user) => user !== req.session.username
       );
@@ -78,9 +81,10 @@ router.post("/post/:postId/like", isAuthenticated, async (req, res) => {
       post.likedBy.push(req.session.username);
     }
     await post.save();
-    res.redirect(req.headers.referer);
+
+    res.status(201).json({ message: "you liked this post" });
   } catch (error) {
-    res.status(500).send("Internal Server Error");
+    res.status(500).json({ error: "Internal Server Error" });
   }
 });
 
@@ -88,12 +92,15 @@ router.post("/post/:postId/dislike", isAuthenticated, async (req, res) => {
   try {
     const postId = req.params.postId;
     const post = await Post.findById(postId);
+
     // Check if the user has already disliked the post
     if (post.dislikedBy.includes(req.session.username)) {
-      return res.redirect(req.headers.referer);
+      return res.status(200).json({ message: "you already liked this post" });
     }
+
     if (post.likedBy.includes(req.session.username)) {
-      // If the user has liked the post and decides to dislike, it will take the like away and add the dislike instead
+      // If the user has already liked the post and decides to dislike it,
+      // It would take away the user from the likedBy array.
       post.likedBy = post.likedBy.filter(
         (user) => user !== req.session.username
       );
@@ -102,9 +109,10 @@ router.post("/post/:postId/dislike", isAuthenticated, async (req, res) => {
       post.dislikedBy.push(req.session.username);
     }
     await post.save();
-    res.redirect(req.headers.referer);
+
+    res.status(201).json({ message: "you liked this post" });
   } catch (error) {
-    res.status(500).send("Internal Server Error");
+    res.status(500).json({ error: "Internal Server Error" });
   }
 });
 
