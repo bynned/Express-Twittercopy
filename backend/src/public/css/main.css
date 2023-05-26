@@ -79,6 +79,28 @@ code {
   font-size: 58px;
 }
 
+.dropdown-content{
+  display: none;
+  position: absolute;
+  background-color: #F3F6F4;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  color: #3e3e42;
+  text-decoration: none;
+  display: block;
+  padding: 12px 16px;
+}
+
+.show {display: block;}
+
+.dropdown-content a:hover {
+  background-color: #dadddb;
+}
+
 .header-link {
   color: #40e0d0;
   text-decoration: none;
@@ -210,6 +232,13 @@ button:hover {
   display: flex;
   gap: 20px;
 }
+
+.comment-title-and-dropdown {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
 
 .App input[type="text"],
 .App input[type="password"],

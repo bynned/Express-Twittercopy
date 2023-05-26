@@ -43,7 +43,16 @@
         </form>
       </div>
       <div class="comments">
+        <div class="comment-title-and-dropdown">
         <h3>Comments:</h3>
+        <div class="sort-comments-dropdown">
+          <button onclick="sortComments()" class="dropbtn">Sort</button>
+          <div id="sort-comments" class="dropdown-content">
+            <a href="#">Newest</a>
+            <a href="#">Popular</a>
+          </div>
+        </div>
+      </div>
         <% post.comments.sort((a, b) => b.comlikedBy.length - a.comlikedBy.length).forEach(function(comment, index) { %>
         <div class="comment">
          <div class="comment-content">
