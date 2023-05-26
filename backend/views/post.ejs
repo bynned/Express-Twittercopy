@@ -48,12 +48,12 @@
         <div class="sort-comments-dropdown">
           <button onclick="sortComments()" id="sort-comments-button" class="dropbtn" data-postid="<%= post._id %>">Sort</button>
           <div id="sort-comments" class="dropdown-content">
-            <% if (newest) { %>
-              <a href="http://localhost:4040/post/<%= post._id %>/newest" class="selected">Newest</a>
-              <a href="http://localhost:4040/post/<%= post._id %>">Popular</a>
+            <% if (popular) { %>
+              <a href="http://localhost:4040/post/<%= post._id %>" class="selected">Newest</a>
+              <a href="http://localhost:4040/post/<%= post._id %>/popular">Popular</a>
             <% } else { %>
-              <a href="http://localhost:4040/post/<%= post._id %>/newest">Newest</a>
-              <a href="http://localhost:4040/post/<%= post._id %>" class="selected">Popular</a>
+              <a href="http://localhost:4040/post/<%= post._id %>">Newest</a>
+              <a href="http://localhost:4040/post/<%= post._id %>/popular" class="selected">Popular</a>
             <% } %>
           </div>
         </div>

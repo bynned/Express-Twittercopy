@@ -38,9 +38,9 @@ router.get("/post/:postId", isAuthenticated, (req, res) => {
         return res.status(404).send("Post not found");
       }
       const sortedComments = post.comments.sort((a, b) => {
-        return b.comlikedBy.length - a.comlikedBy.length;
+        return new Date(a.timestamp) - new Date(b.timestamp);
       });
-      res.render("post.ejs", { post: post, comments: sortedComments, newest: false });
+      res.render("post.ejs", { post: post, comments: sortedComments, popular: true });
     })
     .catch((error) => {
       console.error(error);
@@ -49,7 +49,7 @@ router.get("/post/:postId", isAuthenticated, (req, res) => {
 });
 
 // This is for when opening a post in the '/' route. It will then render the post.ejs
-router.get("/post/:postId/newest", isAuthenticated, (req, res) => {
+router.get("/post/:postId/popular", isAuthenticated, (req, res) => {
   const postId = req.params.postId;
 
   Post.findById(postId)
@@ -58,9 +58,9 @@ router.get("/post/:postId/newest", isAuthenticated, (req, res) => {
         return res.status(404).send("Post not found");
       }
       const sortedComments = post.comments.sort((a, b) => {
-        return new Date(b.timestamp) - new Date(a.timestamp);
+        return b.comlikedBy.length - a.comlikedBy.length;
       });
-      res.render("post.ejs", { post: post, comments: sortedComments, newest: true });
+      res.render("post.ejs", { post: post, comments: sortedComments, popular: false });
     })
     .catch((error) => {
       console.error(error);
