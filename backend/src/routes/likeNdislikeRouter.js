@@ -24,6 +24,7 @@ router.post("/post/:postId/:commentId/like", isAuthenticated, async (req, res) =
         comment.comlikedBy.push(req.session.username);
       }
       await post.save();
+
       res.status(201).json({ message: "you liked this comment" });
     } catch (error) {
       res.status(500).send("Internal Server Error");
@@ -53,12 +54,31 @@ router.post("/post/:postId/:commentId/dislike", isAuthenticated, async (req, res
       comment.comdislikedBy.push(req.session.username);
     }
     await post.save();
+
     res.status(201).json({ message: "you disliked this comment" });
   } catch (error) {
     res.status(500).send("Internal Server Error");
   }
 }
 );
+
+router.get("/post/:postId/:commentId/like", isAuthenticated, async (req, res) => {
+  try {
+    const postId = req.params.postId;
+    const commentId = req.params.commentId;
+
+    const post = await Post.findById(postId);
+    const comment = post.comments.id(commentId);
+
+    const comhasLiked = comment.comlikedBy.includes(req.session.username);
+
+    const comhasDisliked = comment.comdislikedBy.includes(req.session.username);
+    // So here we return a boolean if the user has liked or disliked the comment before
+    res.status(200).json({ comhasLiked, comhasDisliked });
+  } catch (error) {
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
 
 router.post("/post/:postId/like", isAuthenticated, async (req, res) => {
   try {
