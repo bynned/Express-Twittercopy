@@ -23,11 +23,11 @@
       </div>
       <div class="button-container">
           <button class="like-button" id="like-button" data-postid="<%= post._id %>">
-            Like
+            <img src="/icons/thumbs-up-svgrepo-com.svg" alt="Like" class="icon">
           </button>
         <p class="like-number"><%= post.likedBy.length %></p>
           <button class="dislike-button" id="dislike-button" data-postid="<%= post._id %>">
-            Dislike
+            <img src="/icons/thumbs-down-svgrepo-com.svg" alt="Dislike" class="icon">
           </button>
         <p class="dislike-number"><%= post.dislikedBy.length %></p>
       </div>
@@ -50,14 +50,14 @@
           <p><%= comment.content %></p>
           <p><%= comment.timestamp %></p>
           <div class="button-container">
-              <p class="comlike-number"><%= comment.comlikedBy.length %></p>
               <button class="comlike-button" id="comlike-button" data-commentid="<%= comment._id %>">
-                Like
+                <img src="/icons/thumbs-up-svgrepo-com.svg" alt="Like" class="icon">
+              </button>
+              <p class="comlike-number"><%= comment.comlikedBy.length %></p>
+              <button class="comdislike-button" id="comdislike-button" data-commentid="<%= comment._id %>">
+                <img src="/icons/thumbs-down-svgrepo-com.svg" alt="Dislike" class="icon">
               </button>
               <p class="comdislike-number"><%= comment.comdislikedBy.length %></p>
-              <button class="comdislike-button" id="comdislike-button" data-commentid="<%= comment._id %>">
-                Dislike
-              </button>
           </div>
         </div>
         <br />

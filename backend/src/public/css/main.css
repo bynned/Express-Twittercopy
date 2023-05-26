@@ -19,6 +19,27 @@ code {
     border: 1px solid #40e0d0;
 }
 
+.comlike-button,
+.like-button {
+  margin: 0;
+  padding: 4px;
+  width: 40px;
+  height: 40px;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+}
+.comdislike-button,
+.dislike-button{
+  margin: 0;
+  padding: 4px;
+  width: 40px;
+  height: 40px;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+}
+
 .like-number {
   display: flex;
   justify-content: center;
@@ -42,6 +63,7 @@ code {
   justify-content: center;
   color: red;
 }
+
 
 .header-title {
   display: flex;
@@ -80,6 +102,10 @@ code {
     height: 65px;
   }
 
+  .icon {
+    width: 40px;
+    height: 20px;
+  }
   .textarea:focus {
     outline: none;
     border-color: #40e0d0;
@@ -178,7 +204,7 @@ button:hover {
 }
 .button-container {
   display: flex;
-  gap: 50px;
+  gap: 20px;
 }
 
 .App input[type="text"],
