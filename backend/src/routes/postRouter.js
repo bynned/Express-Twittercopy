@@ -4,13 +4,11 @@ const Post = require("../models/posts");
 
 const date = require("date-and-time");
 
-const now = new Date();
-const UTC = date.addHours(now, 3);
-const dateNtime = date.format(UTC, "DD/MM/YYYY HH:mm:ss", true);
-
-
 // This is for posting a new post :)
 router.post("/", isAuthenticated, (req, res) => {
+  const now = new Date();
+  const UTC = date.addHours(now, 3);
+  const dateNtime = date.format(UTC, "DD/MM/YYYY HH:mm:ss", true);
   const postContent = req.body.post;
 
   const newPost = new Post({
@@ -50,6 +48,9 @@ router.get("/post/:postId", isAuthenticated, (req, res) => {
 
 // This is for posting a comment on a particular post
 router.post("/post/:postId", isAuthenticated, async (req, res) => {
+  const now = new Date();
+  const UTC = date.addHours(now, 3);
+  const dateNtime = date.format(UTC, "DD/MM/YYYY HH:mm:ss", true);
   const postId = req.params.postId;
   const commentContent = req.body.content;
 
@@ -84,6 +85,5 @@ function isAuthenticated(req, res, next) {
   }
   res.redirect("/login");
 }
-
 
 module.exports = router;

@@ -18,7 +18,9 @@ code {
     border-radius: 4px;
     border: 1px solid #40e0d0;
 }
-
+.comment-content {
+  margin-left: 5px;
+}
 .comlike-button,
 .like-button {
   margin: 0;
@@ -39,7 +41,9 @@ code {
   justify-content: center;
   display: flex;
 }
-
+.submit-button {
+  margin-top: 5px;
+}
 .like-number {
   display: flex;
   justify-content: center;

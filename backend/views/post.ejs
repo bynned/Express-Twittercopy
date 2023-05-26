@@ -39,13 +39,14 @@
             name="content"
             placeholder="Enter your comment"
           ></textarea>
-          <button type="submit">Submit</button>
+          <button type="submit" class="submit-button">Submit</button>
         </form>
       </div>
       <div class="comments">
         <h3>Comments:</h3>
         <% post.comments.forEach(function(comment) { %>
         <div class="comment">
+         <div class="comment-content">
           <h4><%= comment.username %></h4>
           <p><%= comment.content %></p>
           <p><%= comment.timestamp %></p>
@@ -59,6 +60,7 @@
               </button>
               <p class="comdislike-number"><%= comment.comdislikedBy.length %></p>
           </div>
+         </div>
         </div>
         <br />
         <% }); %>
