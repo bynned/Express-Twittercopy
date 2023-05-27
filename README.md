@@ -41,7 +41,7 @@ npm run devStart
 - [x] Make the page not refresh everytime i like a post or comment, because now always i end up in the top of the page because it refreshes
 - [ ] Comment on comments
 - [ ] The ability to like the comments comments
-- [ ] Improve the HTTP status codes
+- [x] Improve the HTTP status codes
 - [ ] Sort comments by the most liked comment
 - [x] Sort posts by "new" and "popular"
 

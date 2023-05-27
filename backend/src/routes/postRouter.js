@@ -62,7 +62,7 @@ router.get("/post/:postId/popular", isAuthenticated, (req, res) => {
       const sortedComments = post.comments.sort((a, b) => {
         return b.comlikedBy.length - a.comlikedBy.length;
       });
-      res.render("post.ejs", { post: post, comments: sortedComments, popular: false });
+      res.status(200).render("post.ejs", { post: post, comments: sortedComments, popular: false });
     })
     .catch((error) => {
       console.error(error);
@@ -93,7 +93,6 @@ router.post("/post/:postId", isAuthenticated, async (req, res) => {
       comdislikedBy: [],
     };
     post.comments.push(comment);
-    res.status(201);
     await post.save();
 
     res.redirect(`/post/${postId}`);

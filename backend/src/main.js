@@ -51,8 +51,7 @@ app.get("/", isAuthenticated, (req, res) => {
     .sort({ timestamp: -1 })
     .then((posts) => {
       const username = req.session.username;
-      res.render("index.ejs", { username: username, posts: posts });
-      res.status(200);
+      res.status(200).render("index.ejs", { username: username, posts: posts });
     })
     .catch((error) => {
       console.error("Error fetching posts from MongoDB:", error);
