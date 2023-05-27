@@ -43,11 +43,12 @@ npm run devStart
 - [ ] The ability to like the comments comments
 - [ ] Improve the HTTP status codes
 - [ ] Sort comments by the most liked comment
-- [ ] Sort posts by "new" and "popular"
+- [x] Sort posts by "new" and "popular"
 
 ## TBD:
 - [ ] The possibility to post pictures
 - [ ] The possibility to add friends
+- [ ] The possibility to tab someone on a post
 
 ## Also:
 
