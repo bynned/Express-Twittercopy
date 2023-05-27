@@ -43,6 +43,11 @@ likeButton.addEventListener("click", () => {
               // Add +1 to the likes
               const likeCount = document.querySelector(".like-number");
               likeCount.textContent = parseInt(likeCount.textContent) + 1;
+              // Make the like count bounce.
+              likeCount.classList.add('bounce-animation');
+              setTimeout(function() {
+                likeCount.classList.remove('bounce-animation');
+              }, 500);
             } else {
               console.error("Error:", xhrPost.status);
             }
@@ -115,7 +120,6 @@ comlikeButtons.forEach((comlikeButton) => {
   comlikeButton.addEventListener("click", () => {
     const commentId = comlikeButton.getAttribute("data-commentid");
     const postId = comlikeButton.getAttribute("data-postid");
-
     // Send a GET request to check if the user has liked/disliked the comment before
     const xhrGet = new XMLHttpRequest();
     xhrGet.open("GET", `/post/${postId}/${commentId}/like`, true);
@@ -148,6 +152,11 @@ comlikeButtons.forEach((comlikeButton) => {
                 // Add +1 to the likes
                 const comlikeCount = comlikeButton.parentElement.querySelector(".comlike-number");
                 comlikeCount.textContent = parseInt(comlikeCount.textContent) + 1;
+                // Make the like count number bounce when you like a comment
+                comlikeCount.classList.add('bounce-animation');
+                setTimeout(function() {
+                  comlikeCount.classList.remove('bounce-animation');
+                }, 500);
               } else {
                 console.error("Error:", xhrPost.status);
               }
