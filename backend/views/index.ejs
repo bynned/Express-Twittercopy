@@ -4,46 +4,54 @@
     <title>Forum - Home</title>
     <link href="/css/main.css" rel="stylesheet" type="text/css" />
   </head>
-  <a href="/" class="header-link">
-    <h1 class="header-title">Forum</h1>
-  </a>
-  <div class="App">
-    <h1>Welcome <%= username %></h1>
-    <div class="button-container">
-      <form action="/logout?_method=DELETE" method="POST">
-        <button type="submit">Log Out</button>
+  <body>
+    <a href="/" class="header-link">
+      <h1 class="header-title">Forum</h1>
+    </a>
+    <div class="App" id="Appid">
+      <h1>Welcome <%= username %></h1>
+      <div class="button-container">
+        <form action="/logout?_method=DELETE" method="POST">
+          <button type="submit">Log Out</button>
+        </form>
+        <form action="/profile/<%= username %>" method="GET">
+          <button type="submit">My profile</button>
+        </form>
+      </div>
+      <br />
+      <form action="/" method="POST">
+        <input type="hidden" name="username" value="<%= username %>" />
+        <textarea
+          class="textarea"
+          name="post"
+          placeholder="What are you thinking?"
+        ></textarea>
+        <button type="submit">Post</button>
       </form>
-      <form action="/profile/<%= username %>" method="GET">
-        <button type="submit">My profile</button>
-      </form>
-    </div>
-    <br />
-    <form action="/" method="POST">
-      <input type="hidden" name="username" value="<%= username %>" />
-      <textarea
-        class="textarea"
-        name="post"
-        placeholder="What are you thinking?"
-      ></textarea>
-      <button type="submit">Post</button>
-    </form>
-    <br />
-    <div class="posts">
-      <% posts.forEach((post) => { %>
-      <div class="post">
-        <h2><%= post.username %></h2>
-        <div class="post-content">
-          <p><%= post.content %></p>
-          <p><%= post.timestamp %></p>
-          <div class="post-stats">
-          <a href="/post/<%= post._id %>"><button>Open Post</button></a>
-          <p>Likes: <%= post.likedBy.length %></p>
-          <p>Dislikes: <%= post.dislikedBy.length %>
-          <p>Comments: <%= post.comments.length %></p>
+      <br />
+      <div class="posts">
+        <% posts.forEach((post) => { %>
+        <div class="post">
+          <h2><%= post.username %></h2>
+          <div class="post-content">
+            <p><%= post.content %></p>
+            <p><%= post.timestamp %></p>
+            <div class="post-stats">
+              <a href="/post/<%= post._id %>"><button>Open Post</button></a>
+              <p>Likes: <%= post.likedBy.length %></p>
+              <p>Dislikes: <%= post.dislikedBy.length %></p>
+              <p>Comments: <%= post.comments.length %></p>
+            </div>
           </div>
         </div>
+        <% }); %>
       </div>
-      <% }); %>
     </div>
-  </div>
+    <script>
+      window.addEventListener("load", function () {
+        var div = document.getElementById("Appid");
+        div.classList.add("appear");
+      });
+    </script>
+  </body>
 </html>

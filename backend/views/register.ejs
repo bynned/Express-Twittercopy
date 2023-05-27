@@ -5,7 +5,8 @@
     <link rel="shortcut icon" href="" />
     <link href="/css/main.css" rel="stylesheet" type="text/css" />
   </head>
-  <div class="App">
+  <body>
+  <div class="App" id="Appid">
     <h1>Register</h1>
     <form action="/register" method="POST">
       <div>
@@ -26,4 +27,11 @@
       </div>
     </form>
   </div>
+  <script>
+        window.addEventListener("load", function () {
+        var div = document.getElementById("Appid");
+        div.classList.add("appear");
+      });
+  </script>
+</body>
 </html>

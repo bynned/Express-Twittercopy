@@ -5,24 +5,32 @@
     <link rel="shortcut icon" href="" />
     <link href="/css/main.css" rel="stylesheet" type="text/css" />
   </head>
-  <div class="App">
-    <h1>Login</h1>
-    <div class="error-container">
-      <% if (messages.error) { %> <%= messages.error %> <% } %>
+  <body>
+    <div class="App" id="Appid">
+      <h1>Login</h1>
+      <div class="error-container">
+        <% if (messages.error) { %> <%= messages.error %> <% } %>
+      </div>
+      <form action="/login" method="POST">
+        <div>
+          <label for="username">Username</label>
+          <input type="text" id="username" name="username" required />
+        </div>
+        <div>
+          <label for="password">Password</label>
+          <input type="password" id="password" name="password" required />
+        </div>
+        <div class="button-container">
+          <button type="submit">Login</button>
+          <a href="/register" class="button">Register</a>
+        </div>
+      </form>
     </div>
-    <form action="/login" method="POST">
-      <div>
-        <label for="username">Username</label>
-        <input type="text" id="username" name="username" required />
-      </div>
-      <div>
-        <label for="password">Password</label>
-        <input type="password" id="password" name="password" required />
-      </div>
-      <div class="button-container">
-        <button type="submit">Login</button>
-        <a href="/register" class="button">Register</a>
-      </div>
-    </form>
-  </div>
+    <script>
+      window.addEventListener("load", function () {
+        var div = document.getElementById("Appid");
+        div.classList.add("appear");
+      });
+    </script>
+  </body>
 </html>

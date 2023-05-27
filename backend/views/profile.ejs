@@ -11,7 +11,7 @@
     <a href="/" class="header-link">
       <h1 class="header-title">Forum</h1>
     </a>
-    <div class="App">
+    <div class="App" id="Appid">
       <h1><%= username %>'s Profile</h1>
       <br />
       <h2>Check out <%= username %>'s posts!</h2>
@@ -33,5 +33,11 @@
         <% }); %>
       </div>
     </div>
+    <script>
+        window.addEventListener("load", function () {
+        var div = document.getElementById("Appid");
+        div.classList.add("appear");
+      });
+    </script>
   </body>
 </html>
