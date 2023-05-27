@@ -21,6 +21,8 @@ router.post("/", isAuthenticated, (req, res) => {
     .then(() => {
       console.log("Post saved:", newPost);
       res.redirect("/");
+      // res.redirect by default sends HTTP status code of 301. And i would love to have
+      // 201. But for some reason it doesn't work the way i want it to work.
     })
     .catch((error) => {
       console.error("Error saving post:", error);
@@ -40,7 +42,7 @@ router.get("/post/:postId", isAuthenticated, (req, res) => {
       const sortedComments = post.comments.sort((a, b) => {
         return new Date(a.timestamp) - new Date(b.timestamp);
       });
-      res.render("post.ejs", { post: post, comments: sortedComments, popular: true });
+      res.status(200).render("post.ejs", { post: post, comments: sortedComments, popular: true });
     })
     .catch((error) => {
       console.error(error);
@@ -91,7 +93,7 @@ router.post("/post/:postId", isAuthenticated, async (req, res) => {
       comdislikedBy: [],
     };
     post.comments.push(comment);
-
+    res.status(201);
     await post.save();
 
     res.redirect(`/post/${postId}`);

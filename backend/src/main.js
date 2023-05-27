@@ -23,7 +23,8 @@ db.on("error", (error) => console.error(error));
 db.once("open", () => console.log("Connected to Database"));
 
 app.set("view-engine", "ejs");
-app.use(express.static(__dirname + "/public"));
+app.use(express.static(__dirname + "/public", { maxAge: '7d' }));
+app.use('/icons', express.static('public/icons', { maxAge: '7d' }));
 app.use(express.urlencoded({ extended: false }));
 app.use(flash());
 app.use(
@@ -51,6 +52,7 @@ app.get("/", isAuthenticated, (req, res) => {
     .then((posts) => {
       const username = req.session.username;
       res.render("index.ejs", { username: username, posts: posts });
+      res.status(200);
     })
     .catch((error) => {
       console.error("Error fetching posts from MongoDB:", error);

@@ -28,6 +28,7 @@ router.post("/login", function (req, res) {
             secretkey,
             { expiresIn: "24h" }
           );
+          res.status(200);
           res.redirect("/");
         }
       }
