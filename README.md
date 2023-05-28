@@ -45,7 +45,7 @@ npm run devStart
 - [x] Sort comments by the most liked comment
 - [x] Sort posts by "new" and "popular"
 - [ ] Make it more optimized for mobile
-- [ ] The ability to search posts
+- [x] The ability to search posts by the post content
 
 ## TBD:
 - [ ] The possibility to post pictures
