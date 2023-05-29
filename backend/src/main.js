@@ -15,6 +15,7 @@ const registerRouter = require("./routes/registerRouter");
 const postRouter = require("./routes/postRouter");
 const profileRouter = require("./routes/profileRouter");
 const likeNdislikeRouter = require("./routes/likeNdislikeRouter");
+const channelRouter = require("./routes/channelRouter");
 
 // Connect to database
 mongoose.connect(process.env.DATABASE_URL);
@@ -45,6 +46,7 @@ app.use(registerRouter);
 app.use(postRouter);
 app.use(profileRouter);
 app.use(likeNdislikeRouter);
+app.use(channelRouter);
 
 app.get("/", isAuthenticated, (req, res) => {
   Post.find()
