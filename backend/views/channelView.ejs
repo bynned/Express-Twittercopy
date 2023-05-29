@@ -9,34 +9,47 @@
   </head>
   <body>
     <div class="header-link">
-        <h1 class="header-title">
-            <form action="/profile/<%= username %>" method="GET" class="my-profile-button">
-              <button type="submit">My profile</button>
-            </form>
-          <a href="/">
-            <img src="/icons/logo.png" alt="Logo" class="logo-image" />
-          </a>
-          <form action="/logout?_method=DELETE" method="POST" class="log-out-button">
-            <button type="submit">Log Out</button>
-          </form>
-        </h1>
-      </div>
+      <h1 class="header-title">
+        <form
+          action="/profile/<%= username %>"
+          method="GET"
+          class="my-profile-button"
+        >
+          <button type="submit">My profile</button>
+        </form>
+        <a href="/">
+          <img src="/icons/logo.png" alt="Logo" class="logo-image" />
+        </a>
+        <form
+          action="/logout?_method=DELETE"
+          method="POST"
+          class="log-out-button"
+        >
+          <button type="submit">Log Out</button>
+        </form>
+      </h1>
+    </div>
     <div class="App" id="Appid">
-     <div class="channel-header">
-      <h1>Channels</h1>
-      <button id="createChannel">Create Channel</button>
-     </div>
+      <div class="channel-header">
+        <h1>Channels</h1>
+        <button id="createChannel">Create Channel</button>
+      </div>
       <div class="channel-container">
         <a href="/" class="channel-link">
-            <h1>Global</h1>
+          <h1>Global</h1>
         </a>
       </div>
+      <div id="createChannelFormContainer">
+        <form id="createChannelForm" action="/channels" method="POST">
+          <input
+            type="text"
+            name="channelName"
+            placeholder="Enter Channel Name"
+          />
+          <button type="submit">Create</button>
+        </form>
+      </div>
     </div>
-    <script>
-        window.addEventListener("load", function () {
-          var div = document.getElementById("Appid");
-          div.classList.add("appear");
-        });
-      </script>
+    <script src="/scripts/channelView.js"></script>
   </body>
 </html>

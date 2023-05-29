@@ -295,6 +295,10 @@ button:hover {
   height: 60px;
 }
 
+#createChannelFormContainer {
+  display: none;
+}
+
 .login-profile-container {
   display: flex;
   gap: 20px;
