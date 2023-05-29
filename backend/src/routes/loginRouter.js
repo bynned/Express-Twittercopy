@@ -29,7 +29,7 @@ router.post("/login", function (req, res) {
             { expiresIn: "24h" }
           );
           res.status(200);
-          res.redirect("/");
+          res.redirect("/channels");
         }
       }
     })(req, res);

@@ -60,6 +60,10 @@ app.get("/", isAuthenticated, (req, res) => {
     });
 });
 
+app.get("/channels", isAuthenticated, (req, res) => {
+  res.render("channelView.ejs");
+});
+
 app.get("/login", (req, res) => {
   res.render("login.ejs");
 });
