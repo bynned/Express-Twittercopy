@@ -14,6 +14,7 @@ router.post("/", isAuthenticated, (req, res) => {
     username: req.session.username,
     content: postContent,
     timestamp: dateNtime,
+    channel: "Global",
   });
 
   newPost

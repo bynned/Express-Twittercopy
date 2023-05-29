@@ -6,6 +6,10 @@ const UTC = date.addHours(now, 3);
 const dateNtime = date.format(UTC, "DD/MM/YYYY HH:mm:ss");
 
 const postsSchema = new mongoose.Schema({
+  channel: {
+    type: String,
+    required: true,
+  },
   username: {
     type: String,
     required: true,
