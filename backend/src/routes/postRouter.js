@@ -49,7 +49,7 @@ router.get("/", isAuthenticated, (req, res) => {
 // This is for when opening a post in the '/' route. It will then render the post.ejs
 router.get("/post/:postId", isAuthenticated, (req, res) => {
   const postId = req.params.postId;
-
+  const username = req.session.username;
   Post.findById(postId)
     .then((post) => {
       if (!post) {
@@ -58,7 +58,7 @@ router.get("/post/:postId", isAuthenticated, (req, res) => {
       const sortedComments = post.comments.sort((a, b) => {
         return new Date(a.timestamp) - new Date(b.timestamp);
       });
-      res.status(200).render("post.ejs", { post: post, comments: sortedComments, popular: true });
+      res.status(200).render("post.ejs", { post: post, comments: sortedComments, popular: true, username: username });
     })
     .catch((error) => {
       console.error(error);

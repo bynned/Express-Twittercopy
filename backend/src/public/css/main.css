@@ -286,6 +286,17 @@ button:hover {
   align-items: center;
 }
 
+.my-profile-button {
+  padding-right: 50px;
+}
+
+.log-out-button {
+  padding-left: 50px;
+}
+
+.channel-button-index {
+  margin-bottom: 10px;
+}
 
 .App input[type="text"],
 .App input[type="password"],

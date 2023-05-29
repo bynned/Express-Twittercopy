@@ -7,12 +7,21 @@
   <body>
     <div class="header-link">
       <h1 class="header-title">
+          <form action="/profile/<%= username %>" method="GET" class="my-profile-button">
+            <button type="submit">My profile</button>
+          </form>
         <a href="/">
           <img src="/icons/logo.png" alt="Logo" class="logo-image" />
         </a>
+        <form action="/logout?_method=DELETE" method="POST" class="log-out-button">
+          <button type="submit">Log Out</button>
+        </form>
       </h1>
     </div>
     <div class="App" id="Appid">
+      <form action="/channels" method="GET" class="channel-button-index">
+        <button type="submit">Channels</button>
+      </form>
       <form action="/" method="GET">
         <input
           type="text"
@@ -21,15 +30,6 @@
           placeholder="Search posts"
         />
       </form>
-      <div class="login-profile-container">
-        <h1><%= username %></h1>
-        <form action="/profile/<%= username %>" method="GET">
-          <button type="submit">My profile</button>
-        </form>
-        <form action="/logout?_method=DELETE" method="POST">
-          <button type="submit">Log Out</button>
-        </form>
-      </div>
       <br />
       <form action="/" method="POST">
         <input type="hidden" name="username" value="<%= username %>" />

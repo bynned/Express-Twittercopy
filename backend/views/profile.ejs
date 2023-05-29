@@ -10,9 +10,15 @@
   <body>
     <div class="header-link">
       <h1 class="header-title">
+          <form action="/profile/<%= username %>" method="GET" class="my-profile-button">
+            <button type="submit">My profile</button>
+          </form>
         <a href="/">
-        <img src="/icons/logo.png" alt="Logo" class="logo-image">
+          <img src="/icons/logo.png" alt="Logo" class="logo-image" />
         </a>
+        <form action="/logout?_method=DELETE" method="POST" class="log-out-button">
+          <button type="submit">Log Out</button>
+        </form>
       </h1>
     </div>
     <div class="App" id="Appid">

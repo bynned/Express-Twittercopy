@@ -61,7 +61,8 @@ app.get("/", isAuthenticated, (req, res) => {
 });
 
 app.get("/channels", isAuthenticated, (req, res) => {
-  res.render("channelView.ejs");
+  const username = req.session.username;
+  res.render("channelView.ejs", { username: username });
 });
 
 app.get("/login", (req, res) => {
