@@ -1,6 +1,6 @@
-# Express twitter-copy!
+# HushHub
 
-The idea is to make a twitter like social media platform!
+Hmm...
 
 ## How to install:
 >Git clone
