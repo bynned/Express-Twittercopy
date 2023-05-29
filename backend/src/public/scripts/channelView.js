@@ -21,7 +21,23 @@ document.addEventListener('DOMContentLoaded', function() {
         if (channelName) {
             fetch('/channels', {
                 method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ channelName: channelName })
             })
+            .then(function(response) {
+                if (response.ok) {
+                    console.log('Channel created');
+                    channelNameInput.value = '';
+                    createChannelFormContainer.style.display = 'none';
+                } else {
+                    console.error("Failed to create channel");
+                }
+            })
+            .catch(function(error) {
+                console.error('Error creating channel: ', error);
+            });
         }
     });
-})
+});

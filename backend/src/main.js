@@ -16,6 +16,7 @@ const postRouter = require("./routes/postRouter");
 const profileRouter = require("./routes/profileRouter");
 const likeNdislikeRouter = require("./routes/likeNdislikeRouter");
 const channelRouter = require("./routes/channelRouter");
+const bodyParser = require('body-parser');
 
 // Connect to database
 mongoose.connect(process.env.DATABASE_URL);
@@ -27,6 +28,8 @@ app.set("view-engine", "ejs");
 app.use(express.static(__dirname + "/public"/*, { maxAge: '7d' }*/));
 //app.use('/icons', express.static('public/icons', { maxAge: '7d' }));
 app.use(express.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(flash());
 app.use(
   session({
