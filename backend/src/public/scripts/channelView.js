@@ -14,5 +14,14 @@ document.addEventListener('DOMContentLoaded', function() {
 
     createChannelForm.addEventListener('submit', function(event) {
         event.preventDefault();
-    })
+
+        var channelNameInput = document.querySelector('input[name="channelName"]');
+        var channelName = channelNameInput.value.trim();
+
+        if (channelName) {
+            fetch('/channels', {
+                method: 'POST',
+            })
+        }
+    });
 })
