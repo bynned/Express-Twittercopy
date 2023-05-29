@@ -5,7 +5,7 @@ Hmm...
 ## How to install:
 >Git clone
 ```
-git clone git@github.com:bynned/Express-Twittercopy.git
+git clone git@github.com:bynned/HushHub.git
 ```
 >install dependencies in "backend" dir
 ```
