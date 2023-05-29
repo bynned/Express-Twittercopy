@@ -91,3 +91,9 @@ const postsSchema = new mongoose.Schema({
 
 >What im thinking is that if this WAS a large application, it wouldn't be optimal to store the comments of a post inside the postSchema itself. I think MAYBE it would be more optimal to have a own commentsSchema that connects with the postsSchema's ID and the frontend would just GET the post's from the commentsSchema, but im not a professional, if you have any input on this, feel free to contact me.
 
+## Screenshot
+
+![Screenshot 2023-05-29 at 10 22 27](https://github.com/bynned/Express-Twittercopy/assets/99414068/734fe138-860d-49ac-9376-38a2b4616655)
+
+
+
