@@ -27,13 +27,15 @@ document.addEventListener('DOMContentLoaded', function() {
                 body: JSON.stringify({ channelName: channelName })
             })
             .then(function(response) {
-                if (response.ok) {
-                    console.log('Channel created');
+                if (response.status === 201) {
+                    console.log('Channel created successfully');
                     channelNameInput.value = '';
                     createChannelFormContainer.style.display = 'none';
-                } else {
-                    console.error("Failed to create channel");
-                }
+                  } else if (response.status === 409) {
+                    console.error('Channel with the same name already exists');
+                  } else {
+                    console.error('Failed to create channel');
+                  }
             })
             .catch(function(error) {
                 console.error('Error creating channel: ', error);
