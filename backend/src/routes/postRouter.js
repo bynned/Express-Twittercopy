@@ -9,25 +9,26 @@ router.post("/", isAuthenticated, (req, res) => {
   const UTC = date.addHours(now, 3);
   const dateNtime = date.format(UTC, "DD/MM/YYYY HH:mm:ss", true);
   const postContent = req.body.post;
+  const href = req.body.channelHref;
 
   const newPost = new Post({
     username: req.session.username,
     content: postContent,
     timestamp: dateNtime,
-    channel: "Global",
+    channel: href,
   });
 
   newPost
     .save()
     .then(() => {
       console.log("Post saved:", newPost);
-      res.redirect("/");
+      res.redirect("/channels/" + href);
       // res.redirect by default sends HTTP status code of 301. And i would love to have
       // 201. But for some reason it doesn't work the way i want it to work.
     })
     .catch((error) => {
       console.error("Error saving post:", error);
-      res.redirect("/");
+      res.redirect("/channels/" + href);
     });
 });
 
@@ -35,11 +36,12 @@ router.post("/", isAuthenticated, (req, res) => {
 router.get("/", isAuthenticated, (req, res) => {
   const searchQuery = req.query.search || "";
   const username = req.session.username;
+  const href = req.params.href;
 
   Post.find({ content: { $regex: searchQuery, $options: "i" } })
     .sort({ timestamp: -1 })
     .then((posts) => {
-      res.render("index.ejs", { username: username, posts: posts });
+      res.render("index.ejs", { username: username, posts: posts, href: href });
     })
     .catch((error) => {
       console.error("Error finding posts:", error);

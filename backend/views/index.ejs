@@ -19,6 +19,7 @@
       </h1>
     </div>
     <div class="App" id="Appid">
+      <h2>You are now on channel: <%= href %></h2>
       <form action="/channels" method="GET" class="channel-button-index">
         <button type="submit">Channels</button>
       </form>
@@ -33,6 +34,7 @@
       <br />
       <form action="/" method="POST">
         <input type="hidden" name="username" value="<%= username %>" />
+        <input type="hidden" name="channelHref" value="<%= href %>" />
         <textarea
           class="textarea"
           name="post"
