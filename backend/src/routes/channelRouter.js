@@ -1,13 +1,14 @@
 const express = require("express");
 const router = express.Router();
 const channel = require("../models/channel");
+const Post = require("../models/posts");
 
 // Route for creating a new channel
 router.post("/channels", isAuthenticated, (req, res) => {
   const channelName = req.body.channelName;
   const username = req.session.username;
   // Generate the href for the new channel
-  const href = "/" + channelName.toLowerCase().replace(/ /g, "-");
+  const href = channelName.toLowerCase().replace(/ /g, "-");
 
   channel.findOne({ name: channelName }).then((existingChannel) => {
     if (existingChannel) {
@@ -27,10 +28,7 @@ router.post("/channels", isAuthenticated, (req, res) => {
         })
         .catch((error) => {
           console.error("Error creating new channel: ", error);
-          res.status(500).render("channelView.ejs", {
-            username: username,
-            channels: [],
-          });
+          res.redirect("/channels");
         });
     }
   });
@@ -55,6 +53,22 @@ router.get("/channels", isAuthenticated, (req, res) => {
       });
     });
 });
+
+router.get("/channels/:href", isAuthenticated, (req, res) => {
+
+  Post.find()
+  .sort({ timestamp: -1 })
+  .then((posts) => {
+    const username = req.session.username;
+    res.status(200).render("index.ejs", { username: username, posts: posts });
+  })
+  .catch((error) => {
+    console.error("Error fetching posts from MongoDB:", error);
+    const username = req.session.username;
+    res.render("index.ejs", { username: username, posts: [] });
+  });
+
+})
 
 function isAuthenticated(req, res, next) {
   if (req.session && req.session.username) {
