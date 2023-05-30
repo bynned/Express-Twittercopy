@@ -49,6 +49,15 @@
           <h1>Global</h1>
         </a>
       </div>
+      <div>
+        <% channels.forEach((channel) => { %>
+          <div class="channel-container">
+            <a href="/<%= channel.href %>" class="channel-link">
+              <h1><%= channel.name %></h1>
+            </a>
+          </div>
+          <% }); %>
+      </div>
     </div>
     <script src="/scripts/channelView.js"></script>
   </body>

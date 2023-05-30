@@ -12,7 +12,7 @@ router.post("/channels", isAuthenticated, (req, res) => {
   channel.findOne({ name: channelName }).then((existingChannel) => {
     if (existingChannel) {
       console.error("That channel name already exists");
-      res.status(409).send({ error: "That channel aleady exists "});
+      res.status(409).send({ error: "That channel already exists" });
     } else {
       const newChannel = new channel({
         name: channelName,
@@ -23,14 +23,37 @@ router.post("/channels", isAuthenticated, (req, res) => {
         .save()
         .then(() => {
           console.log("New channel created: ", newChannel);
-          res.status(201).render("channelView.ejs", { username: username, channels: channelName });
+          res.redirect("/channels");
         })
         .catch((error) => {
           console.error("Error creating new channel: ", error);
-          res.status(500).send({ error: "Error creating a new channel "});
+          res.status(500).render("channelView.ejs", {
+            username: username,
+            channels: [],
+          });
         });
     }
   });
+});
+
+router.get("/channels", isAuthenticated, (req, res) => {
+  let username = req.session.username;
+
+  channel
+    .find()
+    .then((channels) => {
+      res.status(200).render("channelView.ejs", {
+        username: username,
+        channels: channels,
+      });
+    })
+    .catch((error) => {
+      console.error("Error fetching channels", error);
+      res.status(404).render("channelView.ejs", {
+        username: username,
+        channels: [],
+      });
+    });
 });
 
 function isAuthenticated(req, res, next) {
