@@ -33,6 +33,7 @@
       <div class="channel-header">
         <h1>Channels</h1>
         <button id="createChannelButton">Create Channel</button>
+        <button id="enterChannelKeyButton">Enter Channel Key</button>
       </div>
       <div id="createChannelFormContainer">
         <form id="createChannelForm" action="/channels" method="POST">
@@ -42,6 +43,16 @@
             placeholder="Enter Channel Name"
           />
           <button type="submit">Create</button>
+        </form>
+      </div>
+      <div id="enterChannelKeyContainer">
+        <form id="enterChannelKey" action="/channels" method="GET">
+          <input
+          type="text"
+          name="channelKey"
+          placeholder="Enter Channel Key"
+          />
+          <button type="submit">Enter</button>
         </form>
       </div>
       <div>

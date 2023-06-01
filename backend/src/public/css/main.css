@@ -299,6 +299,10 @@ button:hover {
   display: none;
 }
 
+#enterChannelKeyContainer {
+  display: none;
+}
+
 .login-profile-container {
   display: flex;
   gap: 20px;
