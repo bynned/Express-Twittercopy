@@ -55,10 +55,9 @@ router.get("/channels", isAuthenticated, (req, res) => {
 
 router.get("/channels/:href", isAuthenticated, (req, res) => {
   const href = req.params.href;
-channel.findOne({ href: href })
- .then((foundChannel) => {
-  if (foundChannel) {
-    Post.find({ channel: href }) // Return only the posts that have the channel tag same as the href
+  const searchQuery = req.query.search || "";
+
+  Post.find({ channel: href, content: { $regex: searchQuery, $options: "i" } })
     .sort({ timestamp: -1 })
     .then((posts) => {
       const username = req.session.username;
@@ -68,17 +67,9 @@ channel.findOne({ href: href })
       console.error("Error fetching posts from MongoDB:", error);
       const username = req.session.username;
       res.render("index.ejs", { username: username, posts: [], href: href });
-    });  
-  } else {
-    res.status(404).send("Channel not found");
-  }
- })
- .catch((error) => {
-    console.error("Error fetching channels", error);
-    res.status(500).send("Error fetching channels");
- });
-
+    });
 });
+
 
 function isAuthenticated(req, res, next) {
   if (req.session && req.session.username) {

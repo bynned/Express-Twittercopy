@@ -32,23 +32,6 @@ router.post("/", isAuthenticated, (req, res) => {
     });
 });
 
-// This is a Get function when user wants to search for a particular post
-router.get("/", isAuthenticated, (req, res) => {
-  const searchQuery = req.query.search || "";
-  const username = req.session.username;
-  const href = req.params.href;
-
-  Post.find({ content: { $regex: searchQuery, $options: "i" } })
-    .sort({ timestamp: -1 })
-    .then((posts) => {
-      res.render("index.ejs", { username: username, posts: posts, href: href });
-    })
-    .catch((error) => {
-      console.error("Error finding posts:", error);
-      res.render("index", { posts: [] });
-    })
-});
-
 // This is for when opening a post in the '/' route. It will then render the post.ejs
 router.get("/post/:postId", isAuthenticated, (req, res) => {
   const postId = req.params.postId;
@@ -69,7 +52,7 @@ router.get("/post/:postId", isAuthenticated, (req, res) => {
     });
 });
 
-// This is for when opening a post in the '/' route. It will then render the post.ejs
+// This is for when opening a post in the '/popular' route. It will then render the post.ejs
 router.get("/post/:postId/popular", isAuthenticated, (req, res) => {
   const postId = req.params.postId;
 

@@ -10,7 +10,7 @@
           <form action="/profile/<%= username %>" method="GET" class="my-profile-button">
             <button type="submit">My profile</button>
           </form>
-        <a href="/">
+        <a href="/channels">
           <img src="/icons/logo.png" alt="Logo" class="logo-image" />
         </a>
         <form action="/logout?_method=DELETE" method="POST" class="log-out-button">
@@ -23,7 +23,7 @@
       <form action="/channels" method="GET" class="channel-button-index">
         <button type="submit">Channels</button>
       </form>
-      <form action="/" method="GET">
+      <form action="/channels/<%= href %>" method="GET">
         <input
           type="text"
           class="search-input"
