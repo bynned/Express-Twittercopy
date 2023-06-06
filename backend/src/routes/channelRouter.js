@@ -6,6 +6,7 @@ const Post = require("../models/posts");
 // Route for creating a new channel
 router.post("/channels", isAuthenticated, (req, res) => {
   const channelName = req.body.channelName;
+  const channelKey = req.body.channelKey;
   // Generate the href for the new channel
   const href = channelName.toLowerCase().replace(/ /g, "-");
 
@@ -17,6 +18,7 @@ router.post("/channels", isAuthenticated, (req, res) => {
       const newChannel = new channel({
         name: channelName,
         href: href,
+        key: channelKey,
       });
 
       newChannel
