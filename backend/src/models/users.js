@@ -10,7 +10,11 @@ const usersSchema = new mongoose.Schema({
         type: String,
         required: true,
         unique: true
-    }
+    },
+    availableChannels: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'channel',
+      }],
 });
 usersSchema.plugin(passportLocalMongoose);
 module.exports = mongoose.model('userdb', usersSchema)
