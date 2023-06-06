@@ -10,9 +10,9 @@ router.post("/channels", isAuthenticated, (req, res) => {
   // Generate the href for the new channel
   const href = channelName.toLowerCase().replace(/ /g, "-");
 
-  channel.findOne({ name: channelName }).then((existingChannel) => {
+  channel.findOne({ $or: [{ name: channelName }, { key: channelKey }] }).then((existingChannel) => {
     if (existingChannel) {
-      console.error("That channel name already exists");
+      console.error("That channel name or key already exists");
       res.status(409).send({ error: "That channel already exists" });
     } else {
       const newChannel = new channel({
