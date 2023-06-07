@@ -8,6 +8,7 @@ const userdb = require("../models/users");
 router.post("/channels", isAuthenticated, (req, res) => {
   const channelName = req.body.channelName;
   const channelKey = req.body.channelKey;
+  const username = req.session.username;
   // Generate the href for the new channel
   const href = channelName.toLowerCase().replace(/ /g, "-");
 
@@ -18,28 +19,52 @@ router.post("/channels", isAuthenticated, (req, res) => {
         console.error("That channel name or key already exists");
         res.status(409).send({ error: "That channel already exists" });
       } else {
-        const newChannel = new channel({
-          name: channelName,
-          href: href,
-          key: channelKey,
-        });
+        userdb
+          .findOne({ username: req.session.username })
+          .then((user) => {
+            if (!user) {
+              console.error("User not found");
+              res.status(404).send({ error: "User not found" });
+            } else {
+              const newChannel = new channel({
+                name: channelName,
+                href: href,
+                key: channelKey,
+                owner: user._id,
+              });
 
-        newChannel
-          .save()
-          .then(() => {
-            userdb.findOneAndUpdate(
-              { username: req.session.username },
-              { $push: { availableChannels: newChannel._id } },
-              { new: true }
-            )
-            .then(() => {             
-            console.log("New channel created: ", newChannel);
-            res.redirect("/channels");
-          });
-        })
+              newChannel
+                .save()
+                .then(() => {
+                  userdb
+                    .findOneAndUpdate(
+                      { username: req.session.username },
+                      { $push: { availableChannels: newChannel._id } },
+                      { new: true }
+                    )
+                    .then(() => {
+                      console.log("New channel created: ", newChannel);
+                      res.redirect("/channels");
+                    })
+                    .catch((error) => {
+                      console.error(
+                        "Error updating user's availableChannels: ",
+                        error
+                      );
+                      res.redirect("/channels");
+                    });
+                })
+                .catch((error) => {
+                  console.error("Error creating new channel: ", error);
+                  res.redirect("/channels");
+                });
+            }
+          })
           .catch((error) => {
-            console.error("Error creating new channel: ", error);
-            res.redirect("/channels");
+            console.error("Error finding user: ", error);
+            res.status(500).send({
+              error: "An error occurred while finding the user",
+            });
           });
       }
     });
@@ -57,11 +82,12 @@ router.post("/join-channel", isAuthenticated, (req, res) => {
         res.status(404).send({ error: "Invalid channel key" });
       } else {
         // Add the channel to the user's availableChannels
-        userdb.findOneAndUpdate(
-          { username: req.session.username },
-          { $addToSet: { availableChannels: channel._id } }, // $addToSet to prevent duplicates
-          { new: true }
-        )
+        userdb
+          .findOneAndUpdate(
+            { username: req.session.username },
+            { $addToSet: { availableChannels: channel._id } }, // $addToSet to prevent duplicates
+            { new: true }
+          )
           .then(() => {
             console.log("Joined channel: ", channel);
             res.redirect("/channels");
@@ -74,16 +100,18 @@ router.post("/join-channel", isAuthenticated, (req, res) => {
     })
     .catch((error) => {
       console.error("Error finding channel: ", error);
-      res.status(500).send({ error: "An error occurred while finding the channel" });
+      res
+        .status(500)
+        .send({ error: "An error occurred while finding the channel" });
     });
 });
-
 
 router.get("/channels", isAuthenticated, (req, res) => {
   let username = req.session.username;
 
   // Fetching the users available channels from the database
-  userdb.findOne({ username: username })
+  userdb
+    .findOne({ username: username })
     .populate("availableChannels")
     .then((user) => {
       if (!user) {

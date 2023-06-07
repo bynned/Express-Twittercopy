@@ -13,6 +13,11 @@ const channelSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    owner: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'userdb',
+        required: true,
+    },
 });
 
 module.exports = mongoose.model("channel", channelSchema);
