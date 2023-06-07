@@ -53,25 +53,6 @@ router.get("/post/:postId", isAuthenticated, checkChannelPostMembership, (req, r
     });
 });
 
-// This is for when opening a post in the '/popular' route. It will then render the post.ejs
-router.get("/post/:postId/popular", isAuthenticated, (req, res) => {
-  const postId = req.params.postId;
-
-  Post.findById(postId)
-    .then((post) => {
-      if (!post) {
-        return res.status(404).send("Post not found");
-      }
-      const sortedComments = post.comments.sort((a, b) => {
-        return b.comlikedBy.length - a.comlikedBy.length;
-      });
-      res.status(200).render("post.ejs", { post: post, comments: sortedComments, popular: false });
-    })
-    .catch((error) => {
-      console.error(error);
-      res.status(500).send("Internal Server Error");
-    });
-});
 
 // This is for posting a comment on a particular post
 router.post("/post/:postId", isAuthenticated, async (req, res) => {
