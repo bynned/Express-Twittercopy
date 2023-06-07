@@ -8,7 +8,6 @@ const userdb = require("../models/users");
 router.post("/channels", isAuthenticated, (req, res) => {
   const channelName = req.body.channelName;
   const channelKey = req.body.channelKey;
-  const username = req.session.username;
   // Generate the href for the new channel
   const href = channelName.toLowerCase().replace(/ /g, "-");
 
@@ -136,6 +135,7 @@ router.get("/channels", isAuthenticated, (req, res) => {
     });
 });
 
+// GET Request for searching a paricular post in a channel
 router.get("/channels/:href", isAuthenticated, (req, res) => {
   const href = req.params.href;
   const searchQuery = req.query.search || "";
@@ -155,8 +155,43 @@ router.get("/channels/:href", isAuthenticated, (req, res) => {
     });
 });
 
+
+// Delete request for deleting a channel
+router.delete('/channels/:href', isAuthenticated, async (req, res) => {
+  try {
+    const channelToDelete = await channel.findOne({ href: req.params.href });
+    if (!channelToDelete) {
+      return res.redirect(`/profile/${req.session.username}`);
+    }
+
+    // Check if the user sending the delete request is the owner of the channel
+    if (channelToDelete.owner.toString() !== req.user._id.toString()) {
+      return res.status(403).send('You are not authorized to delete this channel.');
+    }
+
+    const username = req.session.username;
+    const user = await userdb.findOne({ username: username });
+    if (!user) {
+      console.error("User not found");
+      return res.status(404).render("profile.ejs", { username: username, posts: [], channels: [] });
+    }
+
+    await channel.deleteOne({ _id: channelToDelete._id });
+
+    const posts = await Post.find({ username: username }).sort({ timestamp: -1 });
+    const channels = await channel.find({ owner: user._id });
+
+    return res.render("profile.ejs", { username: username, posts: posts, channels: channels });
+  } catch (error) {
+    console.error(error);
+    const username = req.session.username;
+    return res.status(500).render("profile.ejs", { username: username, posts: [], channels: [] });
+  }
+});
+
 function isAuthenticated(req, res, next) {
-  if (req.session && req.session.username) {
+  if (req.session && req.session.username && req.session.userId) {
+    req.user = { _id: req.session.userId };
     return next();
   }
   res.redirect("/login");

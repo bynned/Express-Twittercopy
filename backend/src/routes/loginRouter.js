@@ -23,6 +23,7 @@ router.post("/login", function (req, res) {
           });
         } else {
           req.session.username = user.username;
+          req.session.userId = user._id;
           const token = jwt.sign(
             { userId: user._id, username: user.username },
             secretkey,
