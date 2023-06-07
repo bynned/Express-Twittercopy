@@ -18,12 +18,14 @@ body:before {
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgb(18,18,19);
-  background: linear-gradient(40deg, rgba(18,18,19,1) 0%, rgba(62,62,66,1) 41%, rgba(64,224,208,1) 100%);
+  background-color: #424244;
   z-index: -1;
 }
 
-
+.logo-image {
+  width: 500px;
+  height: auto;
+}
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
@@ -32,7 +34,7 @@ code {
 
 .comment {
     border-radius: 4px;
-    border: 1px solid #40e0d0;
+    border: 1px solid #F3A83C;
 }
 .comment-content {
   margin-left: 5px;
@@ -178,8 +180,22 @@ code {
   }
   .textarea:focus {
     outline: none;
-    border-color: #40e0d0;
-    box-shadow: 0 0 5px #39c9bb;
+    border-color: #FBEAAB;
+    box-shadow: 0 0 5px #F3A83C;
+  }
+
+  .channel-link {
+    display: flex;
+    align-items: center;
+  }
+  
+  .channel-container {
+    display: flex;
+    align-items: center;
+  }
+
+  .delete-channel-form {
+    margin-left: auto;
   }
 
 .error-container {
@@ -193,7 +209,7 @@ code {
     padding: 2px;
     margin-bottom: 10px;
     border-radius: 5px;
-    background-color: #40e0d0;
+    background-color: #F3A83C;
     align-items: center;
   }
 
@@ -275,7 +291,7 @@ a.button {
   appearance: button;
   color: white;
   text-decoration: none;
-  background-color: #40e0d0;
+  background-color: #F3A83C;
   border: none;
   border-radius: 5px;
   padding: 10px 20px;
@@ -285,13 +301,13 @@ a.button {
 }
 
 a.button:hover {
-  background-color: #39c9bb;
+  background-color: #DA9736;
 }
 
 button,
 .LinkButton {
   text-decoration: none;
-  background-color: #40e0d0;
+  background-color: #F3A83C;
   color: white;
   border: none;
   border-radius: 5px;
@@ -302,7 +318,7 @@ button,
 }
 
 button:hover {
-  background-color: #39c9bb;
+  background-color: #DA9736;
 }
 .button-container {
   display: flex;
@@ -369,5 +385,5 @@ button:hover {
 .App input[type="password"]:focus,
 .App input[type="email"]:focus {
   outline: none;
-  border: 2px solid #40e0d0;
+  border: 2px solid #F3A83C;
 }
