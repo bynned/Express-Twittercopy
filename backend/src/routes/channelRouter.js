@@ -178,6 +178,12 @@ router.delete('/channels/:href', isAuthenticated, async (req, res) => {
 
     await channel.deleteOne({ _id: channelToDelete._id });
 
+    // Delete the channelID from the users availableChannels
+    await userdb.updateOne(
+      { _id: user._id },
+      { $pull: { availableChannels: channelToDelete._id } }
+    );
+
     const posts = await Post.find({ username: username }).sort({ timestamp: -1 });
     const channels = await channel.find({ owner: user._id });
 
