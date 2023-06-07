@@ -17,6 +17,7 @@ const profileRouter = require("./routes/profileRouter");
 const likeNdislikeRouter = require("./routes/likeNdislikeRouter");
 const channelRouter = require("./routes/channelRouter");
 const bodyParser = require('body-parser');
+const port = 4040; // Port where server is running
 
 // Connect to database
 mongoose.connect(process.env.DATABASE_URL);
@@ -101,4 +102,6 @@ function isAuthenticated(req, res, next) {
   res.redirect("/login");
 }
 
-app.listen(4040);
+app.listen(port, () =>{
+  console.log(`HushHub running on port ${port}`);
+})
