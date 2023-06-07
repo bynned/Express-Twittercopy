@@ -1,18 +1,39 @@
 const express = require("express");
 const router = express.Router();
 const Post = require(".././models/posts");
+const User = require(".././models/users");
+const Channel = require(".././models/channel");
 
 router.get("/profile/:username", (req, res) => {
   const { username } = req.params;
 
-  Post.find({ username: username })
-    .sort({ timestamp: -1 })
-    .then((posts) => {
-      res.render("profile.ejs", { username: username, posts: posts });
+  User.findOne({ username: username })
+    .then((user) => {
+      if (!user) {
+        console.error("User not found");
+        res.status(404).render("profile.ejs", { username: username, posts: [], channels: [] });
+      } else {
+        Post.find({ username: username })
+          .sort({ timestamp: -1 })
+          .then((posts) => {
+            Channel.find({ owner: user._id })
+              .then((channels) => {
+                res.render("profile.ejs", { username: username, posts: posts, channels: channels });
+              })
+              .catch((error) => {
+                console.error("Error fetching channels:", error);
+                res.render("profile.ejs", { username: username, posts: posts, channels: [] });
+              });
+          })
+          .catch((error) => {
+            console.error("Error fetching posts:", error);
+            res.render("profile.ejs", { username: username, posts: [], channels: [] });
+          });
+      }
     })
     .catch((error) => {
-      console.error("Error fetching posts:", error);
-      res.render("profile.ejs", { username: username, posts: [] });
+      console.error("Error fetching user:", error);
+      res.render("profile.ejs", { username: username, posts: [], channels: [] });
     });
 });
 

@@ -135,6 +135,20 @@ code {
 .post-username-link:visited {
   color: #40e0d0;
 }
+
+.user-content {
+  display: flex;
+}
+
+.posts {
+  flex: 1;
+  margin-right: 20px;
+}
+
+.user-channels {
+  flex: 1;
+}
+
 .textarea {
     background-color: #3e3e42;
     color: #F3F6F4;
@@ -203,6 +217,16 @@ code {
   }
 .App {
   max-width: 600px;
+  margin: 10px auto;
+  padding: 40px;
+  background-color: #2d2d30;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  opacity: 0;
+}
+
+.App-userpage {
+  max-width: 1000px;
   margin: 10px auto;
   padding: 40px;
   background-color: #2d2d30;

@@ -10,41 +10,63 @@
   <body>
     <div class="header-link">
       <h1 class="header-title">
-          <form action="/profile/<%= username %>" method="GET" class="my-profile-button">
-            <button type="submit">My profile</button>
-          </form>
+        <form
+          action="/profile/<%= username %>"
+          method="GET"
+          class="my-profile-button"
+        >
+          <button type="submit">My profile</button>
+        </form>
         <a href="/channels">
           <img src="/icons/logo.png" alt="Logo" class="logo-image" />
         </a>
-        <form action="/logout?_method=DELETE" method="POST" class="log-out-button">
+        <form
+          action="/logout?_method=DELETE"
+          method="POST"
+          class="log-out-button"
+        >
           <button type="submit">Log Out</button>
         </form>
       </h1>
     </div>
-    <div class="App" id="Appid">
+    <div class="App-userpage" id="Appid">
       <h1><%= username %>'s Profile</h1>
       <br />
-      <h2>Your posts</h2>
-      <div class="posts">
-        <% posts.forEach((post) => { %>
-        <div class="post">
-          <h2><%= post.username %></h2>
-          <div class="post-content">
-            <p><%= post.content %></p>
-            <p><%= post.timestamp %></p>
-            <div class="post-stats">
-            <a href="/post/<%= post._id %>"><button>Open Post</button></a>
-            <p>Likes: <%= post.likedBy.length %></p>
-            <p>Dislikes: <%= post.dislikedBy.length %>
-            <p>Comments: <%= post.comments.length %></p>
+      <div class="user-content">
+        <div class="posts">
+          <h2>Your posts</h2>
+          <% posts.forEach((post) => { %>
+          <div class="post">
+            <h2><%= post.username %></h2>
+            <div class="post-content">
+              <p><%= post.content %></p>
+              <p><%= post.timestamp %></p>
+              <div class="post-stats">
+                <a href="/post/<%= post._id %>"><button>Open Post</button></a>
+                <p>Likes: <%= post.likedBy.length %></p>
+                <p>Dislikes: <%= post.dislikedBy.length %></p>
+                <p>Comments: <%= post.comments.length %></p>
+              </div>
             </div>
           </div>
+          <% }); %>
         </div>
-        <% }); %>
+        <div class="user-channels">
+          <h2>Your channels</h2>
+          <div class="channels">
+            <% channels.forEach((channel) => { %>
+            <div class="channel-container">
+              <a href="/channels/<%= channel.href %>" class="channel-link">
+                <h1><%= channel.name %></h1>
+              </a>
+            </div>
+            <% }); %>
+          </div>
+        </div>
       </div>
     </div>
     <script>
-        window.addEventListener("load", function () {
+      window.addEventListener("load", function () {
         var div = document.getElementById("Appid");
         div.classList.add("appear");
       });
