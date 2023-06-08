@@ -142,6 +142,10 @@ code {
   display: flex;
 }
 
+.delete-channel-button {
+  margin-right: 10px;
+}
+
 .posts {
   flex: 1;
   margin-right: 20px;
