@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const Post = require("../models/posts");
 const date = require("date-and-time");
-const checkChannelMembership = require("../middleware/checkChannelMembership");
+const checkChannelPostMembership = require("../middleware/checkChannelPostMembership");
 
 // This is for posting a new post :)
 router.post("/", isAuthenticated, (req, res) => {
@@ -34,7 +34,7 @@ router.post("/", isAuthenticated, (req, res) => {
 });
 
 // This is for when opening a post in the '/' route. It will then render the post.ejs
-router.get("/post/:postId", isAuthenticated, checkChannelMembership, (req, res) => {
+router.get("/post/:postId", isAuthenticated, checkChannelPostMembership, (req, res) => {
   const postId = req.params.postId;
   const username = req.session.username;
   Post.findById(postId)

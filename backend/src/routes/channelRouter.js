@@ -3,6 +3,7 @@ const router = express.Router();
 const channel = require("../models/channel");
 const Post = require("../models/posts");
 const userdb = require("../models/users");
+const checkUserChannelMembership = require("../middleware/checkUserChannelMembership");
 
 // Route for creating a new channel
 router.post("/channels", isAuthenticated, (req, res) => {
@@ -136,7 +137,7 @@ router.get("/channels", isAuthenticated, (req, res) => {
 });
 
 // GET Request for searching a paricular post in a channel
-router.get("/channels/:id", isAuthenticated, (req, res) => {
+router.get("/channels/:id", isAuthenticated, checkUserChannelMembership, (req, res) => {
   const channelId = req.params.id;
   const searchQuery = req.query.search || "";
 

@@ -1,7 +1,11 @@
 const Post = require("../models/posts");
 const User = require("../models/users");
 
-const checkChannelMembership = (req, res, next) => {
+
+// This is to check if a user is authorized to view a post,
+// To tackle the scenario where your friend would link a post to you, and you could view the post
+// Even though you're not signed in to the channel.
+const checkChannelPostMembership = (req, res, next) => {
   const postId = req.params.postId;
   const username = req.session.username;
 
@@ -42,4 +46,4 @@ const checkChannelMembership = (req, res, next) => {
     });
 };
 
-module.exports = checkChannelMembership;
+module.exports = checkChannelPostMembership;
