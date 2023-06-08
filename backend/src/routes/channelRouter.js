@@ -166,9 +166,10 @@ router.get("/channels/:id", isAuthenticated, (req, res) => {
 
 
 // Delete request for deleting a channel
-router.delete('/channels/:href', isAuthenticated, async (req, res) => {
+router.delete('/channels/:id', isAuthenticated, async (req, res) => {
   try {
-    const channelToDelete = await channel.findOne({ href: req.params.href });
+    const channelId = req.params.id;
+    const channelToDelete = await channel.findOne({ _id: channelId });
     if (!channelToDelete) {
       return res.redirect(`/profile/${req.session.username}`);
     }
