@@ -19,11 +19,11 @@
       </h1>
     </div>
     <div class="App" id="Appid">
-      <h2>You are now on channel: <%= href %></h2>
+      <h2>You are now on channel: <%= channelName %></h2>
       <form action="/channels" method="GET" class="channel-button-index">
         <button type="submit">Channels</button>
       </form>
-      <form action="/channels/<%= href %>" method="GET">
+      <form action="/channels/<%= channelId %>" method="GET">
         <input
           type="text"
           class="search-input"
@@ -34,7 +34,7 @@
       <br />
       <form action="/" method="POST">
         <input type="hidden" name="username" value="<%= username %>" />
-        <input type="hidden" name="channelHref" value="<%= href %>" />
+        <input type="hidden" name="channelHref" value="<%= channelId %>" />
         <textarea
           class="textarea"
           name="post"

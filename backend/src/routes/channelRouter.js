@@ -136,22 +136,31 @@ router.get("/channels", isAuthenticated, (req, res) => {
 });
 
 // GET Request for searching a paricular post in a channel
-router.get("/channels/:href", isAuthenticated, (req, res) => {
-  const href = req.params.href;
+router.get("/channels/:id", isAuthenticated, (req, res) => {
+  const channelId = req.params.id;
   const searchQuery = req.query.search || "";
 
-  Post.find({ channel: href, content: { $regex: searchQuery, $options: "i" } })
-    .sort({ timestamp: -1 })
-    .then((posts) => {
-      const username = req.session.username;
-      res
-        .status(200)
-        .render("index.ejs", { username: username, posts: posts, href: href });
+  channel.findById(channelId)
+    .then((channel) => {
+      if (!channel) {
+        throw new Error("Channel not found");
+      }
+      return Post.find({ channel: channelId, content: { $regex: searchQuery, $options: "i" } })
+        .sort({ timestamp: -1 })
+        .then((posts) => {
+          const username = req.session.username;
+          res.status(200).render("index.ejs", {
+            username: username,
+            posts: posts,
+            channelId: channelId,
+            channelName: channel.name,
+          });
+        });
     })
     .catch((error) => {
       console.error("Error fetching posts from MongoDB:", error);
       const username = req.session.username;
-      res.render("index.ejs", { username: username, posts: [], href: href });
+      res.render("index.ejs", { username: username, posts: [], channelId: channelId });
     });
 });
 

@@ -5,10 +5,6 @@ const channelSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    href: {
-        type: String,
-        required: true,
-    },
     key: {
         type: String,
         required: true,
