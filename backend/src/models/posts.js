@@ -7,7 +7,8 @@ const dateNtime = date.format(UTC, "DD/MM/YYYY HH:mm:ss");
 
 const postsSchema = new mongoose.Schema({
   channel: {
-    type: String,
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "channel",
     required: true,
   },
   username: {

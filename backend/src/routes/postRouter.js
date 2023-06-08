@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const Post = require("../models/posts");
 const date = require("date-and-time");
+const checkChannelMembership = require("../middleware/checkChannelMembership");
 
 // This is for posting a new post :)
 router.post("/", isAuthenticated, (req, res) => {
@@ -9,31 +10,31 @@ router.post("/", isAuthenticated, (req, res) => {
   const UTC = date.addHours(now, 3);
   const dateNtime = date.format(UTC, "DD/MM/YYYY HH:mm:ss", true);
   const postContent = req.body.post;
-  const href = req.body.channelHref;
+  const channelId = req.body.channelId;
 
   const newPost = new Post({
     username: req.session.username,
     content: postContent,
     timestamp: dateNtime,
-    channel: href,
+    channel: channelId,
   });
 
   newPost
     .save()
     .then(() => {
       console.log("Post saved:", newPost);
-      res.redirect("/channels/" + href);
+      res.redirect("/channels/" + channelId);
       // res.redirect by default sends HTTP status code of 301. And i would love to have
       // 201. But for some reason it doesn't work the way i want it to work.
     })
     .catch((error) => {
       console.error("Error saving post:", error);
-      res.redirect("/channels/" + href);
+      res.redirect("/channels/" + channelId);
     });
 });
 
 // This is for when opening a post in the '/' route. It will then render the post.ejs
-router.get("/post/:postId", isAuthenticated, (req, res) => {
+router.get("/post/:postId", isAuthenticated, checkChannelMembership, (req, res) => {
   const postId = req.params.postId;
   const username = req.session.username;
   Post.findById(postId)
