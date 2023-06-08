@@ -9,7 +9,6 @@ const mongoose = require("mongoose");
 const userdb = require("./models/users");
 const LocalStrategy = require("passport-local").Strategy;
 passport.use(new LocalStrategy(userdb.authenticate()));
-const Post = require("./models/posts");
 const loginRouter = require("./routes/loginRouter");
 const registerRouter = require("./routes/registerRouter");
 const postRouter = require("./routes/postRouter");
