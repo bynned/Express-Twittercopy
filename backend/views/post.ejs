@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Post - <%= post.username %></title>
+    <title>Post - <%= post.title %></title>
     <link href="/css/main.css" rel="stylesheet" type="text/css" />
   </head>
   <body>
@@ -19,12 +19,7 @@
       </h1>
     </div>
     <div class="App" id="Appid">
-      <h1>
-        Post by
-        <a href="/profile/<%= post.username %>" class="post-username-link"
-          ><%= post.username %></a
-        >
-      </h1>
+      <h1><%= post.title %></h1>
       <div class="post">
         <div class="post-content">
           <p><%= post.content %></p>
