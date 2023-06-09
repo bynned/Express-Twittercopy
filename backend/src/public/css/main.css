@@ -360,6 +360,15 @@ button:hover {
   display: none;
 }
 
+#searchPostContainer {
+  display: none;
+}
+
+.channel-button-index {
+  display: inline-block;
+  margin-right: 40px;
+}
+
 .login-profile-container {
   display: flex;
   gap: 20px;

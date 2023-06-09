@@ -7,13 +7,21 @@
   <body>
     <div class="header-link">
       <h1 class="header-title">
-          <form action="/profile/<%= username %>" method="GET" class="my-profile-button">
-            <button type="submit">My profile</button>
-          </form>
+        <form
+          action="/profile/<%= username %>"
+          method="GET"
+          class="my-profile-button"
+        >
+          <button type="submit">My profile</button>
+        </form>
         <a href="/channels">
           <img src="/icons/logo.png" alt="Logo" class="logo-image" />
         </a>
-        <form action="/logout?_method=DELETE" method="POST" class="log-out-button">
+        <form
+          action="/logout?_method=DELETE"
+          method="POST"
+          class="log-out-button"
+        >
           <button type="submit">Log Out</button>
         </form>
       </h1>
@@ -21,21 +29,29 @@
     <div class="App" id="Appid">
       <h2>You are now on channel: <%= channelName %></h2>
       <form action="/channels" method="GET" class="channel-button-index">
-        <button type="submit">Channels</button>
+        <button type="submit">Back to channels</button>
       </form>
-      <form action="/channels/<%= channelId %>" method="GET">
-        <input
-          type="text"
-          class="search-input"
-          name="search"
-          placeholder="Search posts"
-        />
-      </form>
+      <button id="searchPostButton">Search for posts</button>
+      <div id="searchPostContainer">
+        <form action="/channels/<%= channelId %>" method="GET">
+          <input
+            type="text"
+            class="search-input"
+            name="search"
+            placeholder="Search posts"
+          />
+        </form>
+      </div>
       <br />
       <form action="/" method="POST">
         <input type="hidden" name="username" value="<%= username %>" />
         <input type="hidden" name="channelId" value="<%= channelId %>" />
-        <input type="text" name="title" placeholder="Enter title" class="postTitle"/>
+        <input
+          type="text"
+          name="title"
+          placeholder="Enter title"
+          class="postTitle"
+        />
         <textarea
           class="textarea"
           name="post"
@@ -61,11 +77,6 @@
         <% }); %>
       </div>
     </div>
-    <script>
-      window.addEventListener("load", function () {
-        var div = document.getElementById("Appid");
-        div.classList.add("appear");
-      });
-    </script>
+    <script src="/scripts/searchPost.js"></script>
   </body>
 </html>
