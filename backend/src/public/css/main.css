@@ -138,6 +138,10 @@ code {
   color: #40e0d0;
 }
 
+.post-button {
+  margin-top: 10px;
+}
+
 .user-content {
   display: flex;
 }
