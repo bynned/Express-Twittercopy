@@ -35,10 +35,11 @@
       <form action="/" method="POST">
         <input type="hidden" name="username" value="<%= username %>" />
         <input type="hidden" name="channelId" value="<%= channelId %>" />
+        <input type="text" name="title" placeholder="Enter title" class="postTitle"/>
         <textarea
           class="textarea"
           name="post"
-          placeholder="What are you thinking?"
+          placeholder="Enter content"
         ></textarea>
         <button type="submit">Post</button>
       </form>
@@ -46,9 +47,8 @@
       <div class="posts">
         <% posts.forEach((post) => { %>
         <div class="post">
-          <h2><%= post.username %></h2>
           <div class="post-content">
-            <p><%= post.content %></p>
+            <h2><%= post.title %></h2>
             <p><%= post.timestamp %></p>
             <div class="post-stats">
               <a href="/post/<%= post._id %>"><button>Open Post</button></a>

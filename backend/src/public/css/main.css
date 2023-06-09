@@ -166,6 +166,15 @@ code {
     height: 65px;
   }
 
+  .postTitle {
+    background-color: #3e3e42;
+    color: #F3F6F4;
+  }
+
+  .postTitle::placeholder {
+    color: #F3F6F4;
+  }
+
   .channel-container {
     background-color: #3e3e42;
     padding: 2px;

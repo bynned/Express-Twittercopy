@@ -11,9 +11,11 @@ router.post("/", isAuthenticated, (req, res) => {
   const dateNtime = date.format(UTC, "DD/MM/YYYY HH:mm:ss", true);
   const postContent = req.body.post;
   const channelId = req.body.channelId;
+  const postTitle = req.body.title;
 
   const newPost = new Post({
     username: req.session.username,
+    title: postTitle,
     content: postContent,
     timestamp: dateNtime,
     channel: channelId,
