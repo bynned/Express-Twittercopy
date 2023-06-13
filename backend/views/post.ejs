@@ -66,8 +66,7 @@
       <% post.comments.forEach(function(comment, index) { %>
         <div class="comment">
          <div class="comment-content">
-          <h4><%= comment.username %></h4>
-          <p><%= comment.content %></p>
+          <h3><%= comment.content %></h3>
           <p><%= comment.timestamp %></p>
           <div class="button-container">
               <button class="comlike-button" id="comlike-button" data-commentid="<%= comment._id %>" data-postid="<%= post._id %>">
