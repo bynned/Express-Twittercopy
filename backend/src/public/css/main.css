@@ -170,14 +170,20 @@ code {
     height: 65px;
   }
 
-  .postTitle {
+  .textareaTitle {
     background-color: #3e3e42;
     color: #F3F6F4;
+    padding: 10px;
+    border: 1px solid #3e3e42;
+    border-radius: 4px;
+    resize: none;
+    width: 100%;
+    height: 20px;
+    margin-bottom: 10px;
   }
 
-  .postTitle::placeholder {
-    color: #F3F6F4;
-  }
+
+
 
   .channel-container {
     background-color: #3e3e42;
@@ -195,7 +201,8 @@ code {
     width: 40px;
     height: 20px;
   }
-  .textarea:focus {
+  .textarea:focus,
+  .textareaTitle:focus {
     outline: none;
     border-color: #FBEAAB;
     box-shadow: 0 0 5px #F3A83C;

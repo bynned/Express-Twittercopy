@@ -46,12 +46,11 @@
       <form action="/" method="POST">
         <input type="hidden" name="username" value="<%= username %>" />
         <input type="hidden" name="channelId" value="<%= channelId %>" />
-        <input
-          type="text"
+        <textarea
           name="title"
           placeholder="Enter title"
-          class="postTitle"
-        />
+          class="textareaTitle"
+        ></textarea>
         <textarea
           class="textarea"
           name="post"
