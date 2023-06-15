@@ -45,9 +45,9 @@ router.get("/post/:postId", isAuthenticated, checkChannelPostMembership, (req, r
         return res.status(404).send("Post not found");
       }
       const sortedComments = post.comments.sort((a, b) => {
-        return new Date(a.timestamp) - new Date(b.timestamp);
+        return b.comlikedBy.length - a.comlikedBy.length;
       });
-      res.status(200).render("post.ejs", { post: post, comments: sortedComments, popular: true, username: username });
+      res.status(200).render("post.ejs", { post: post, comments: sortedComments, username: username });
     })
     .catch((error) => {
       console.error(error);
