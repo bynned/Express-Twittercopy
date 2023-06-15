@@ -195,6 +195,9 @@ router.delete('/channels/:id', isAuthenticated, async (req, res) => {
       { $pull: { availableChannels: channelToDelete._id } }
     );
 
+    // This is for deleting the post that were posted to the channel
+    await Post.deleteMany({ channel: channelToDelete._id });
+
     const posts = await Post.find({ username: username }).sort({ timestamp: -1 });
     const channels = await channel.find({ owner: user._id });
 
