@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Post - <%= post.title %></title>
+    <title>HushHub - <%= post.title %></title>
     <link href="/css/main.css" rel="stylesheet" type="text/css" />
   </head>
   <body>
@@ -50,18 +50,6 @@
       <div class="comments">
         <div class="comment-title-and-dropdown">
         <h3>Comments:</h3>
-        <div class="sort-comments-dropdown">
-          <button onclick="sortComments()" id="sort-comments-button" class="dropbtn" data-postid="<%= post._id %>">Sort</button>
-          <div id="sort-comments" class="dropdown-content">
-            <% if (popular) { %>
-              <a href="http://localhost:4040/post/<%= post._id %>" class="selected">Newest</a>
-              <a href="http://localhost:4040/post/<%= post._id %>/popular">Popular</a>
-            <% } else { %>
-              <a href="http://localhost:4040/post/<%= post._id %>">Newest</a>
-              <a href="http://localhost:4040/post/<%= post._id %>/popular" class="selected">Popular</a>
-            <% } %>
-          </div>
-        </div>
       </div>
       <% post.comments.forEach(function(comment, index) { %>
         <div class="comment">
