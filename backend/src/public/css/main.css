@@ -11,6 +11,11 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+.postImage {
+  width: 575px;
+  height: auto;
+}
+
 body:before {
   content: "";
   position: fixed;
