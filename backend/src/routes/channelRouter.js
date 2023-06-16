@@ -4,6 +4,8 @@ const channel = require("../models/channel");
 const Post = require("../models/posts");
 const userdb = require("../models/users");
 const checkUserChannelMembership = require("../middleware/checkUserChannelMembership");
+const fs = require("fs");
+const path = require("path");
 
 // Route for creating a new channel
 router.post("/channels", isAuthenticated, (req, res) => {
@@ -195,7 +197,17 @@ router.delete('/channels/:id', isAuthenticated, async (req, res) => {
       { $pull: { availableChannels: channelToDelete._id } }
     );
 
-    // This is for deleting the post that were posted to the channel
+    // This is for deleting the images that were posted to the channel
+    const imagesToDelete = await Post.find({ channel: channelToDelete._id });
+
+    imagesToDelete.forEach((imageToDelete) => {
+      if (imageToDelete.image) {
+        const imagePath = path.join(__dirname, "images", imageToDelete.image.replace("/images/", ""));
+        console.log(imagePath);
+        fs.unlinkSync(imagePath);
+      }
+    });
+
     await Post.deleteMany({ channel: channelToDelete._id });
 
     const posts = await Post.find({ username: username }).sort({ timestamp: -1 });
@@ -208,6 +220,7 @@ router.delete('/channels/:id', isAuthenticated, async (req, res) => {
     return res.status(500).render("profile.ejs", { username: username, posts: [], channels: [] });
   }
 });
+
 
 function isAuthenticated(req, res, next) {
   if (req.session && req.session.username && req.session.userId) {
