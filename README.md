@@ -20,8 +20,9 @@ SESSION_SECRET=somekey
 JWT_SECRET_KEY=somekey
 
 ```
->create "images" folder in /routes where the images uploaded will be stored.
+>create "images" folder in /routes where the uploaded images will be stored.
 <br />
+
 >After that, (assuming you have mongodb installed) you can:
 ```
 npm run devStart
