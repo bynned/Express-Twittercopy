@@ -17,6 +17,7 @@ const likeNdislikeRouter = require("./routes/likeNdislikeRouter");
 const channelRouter = require("./routes/channelRouter");
 const bodyParser = require('body-parser');
 const port = 4040; // Port where server is running
+const path = require("path");
 
 // Connect to database
 mongoose.connect(process.env.DATABASE_URL);
@@ -26,6 +27,7 @@ db.once("open", () => console.log("Connected to Database"));
 
 app.set("view-engine", "ejs");
 app.use(express.static(__dirname + "/public"/*, { maxAge: '7d' }*/));
+app.use("/images", express.static(path.join(__dirname, "routes", "images")));
 //app.use('/icons', express.static('public/icons', { maxAge: '7d' }));
 app.use(express.urlencoded({ extended: false }));
 app.use(bodyParser.json());

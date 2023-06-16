@@ -34,7 +34,7 @@ router.post("/", isAuthenticated, upload.single("image"), (req, res) => {
     content: postContent,
     timestamp: dateNtime,
     channel: channelId,
-    image: path.join(__dirname, "images", req.file.filename),
+    image: req.file ? "/images/" + req.file.filename : null,
   });
 
   newPost
@@ -63,7 +63,8 @@ router.get("/post/:postId", isAuthenticated, checkChannelPostMembership, (req, r
       const sortedComments = post.comments.sort((a, b) => {
         return b.comlikedBy.length - a.comlikedBy.length;
       });
-      res.status(200).render("post.ejs", { post: post, comments: sortedComments, username: username });
+      const imagePath = post.image ? post.image : null;
+      res.status(200).render("post.ejs", { post: post, comments: sortedComments, username: username, image: imagePath, });
     })
     .catch((error) => {
       console.error(error);
