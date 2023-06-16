@@ -43,7 +43,7 @@
         </form>
       </div>
       <br />
-      <form action="/" method="POST">
+      <form action="/" method="POST" enctype="multipart/form-data">
         <input type="hidden" name="username" value="<%= username %>" />
         <input type="hidden" name="channelId" value="<%= channelId %>" />
         <textarea
@@ -56,6 +56,7 @@
           name="post"
           placeholder="Enter content"
         ></textarea>
+        <input type="file" name="image" accept="image/*" />
         <button type="submit" class="post-button">Post</button>
       </form>
       <br />

@@ -27,6 +27,9 @@ const postsSchema = new mongoose.Schema({
     type: String,
     default: dateNtime,
   },
+  image: {
+    type: String,
+  },
   likedBy: [
     {
       type: String,

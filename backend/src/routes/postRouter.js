@@ -3,9 +3,24 @@ const router = express.Router();
 const Post = require("../models/posts");
 const date = require("date-and-time");
 const checkChannelPostMembership = require("../middleware/checkChannelPostMembership");
+const multer = require("multer");
+const path = require("path");
+
+
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, path.join(__dirname, "images")); // The folder where the images will be saved
+  },
+  filename: function (req, file, cb) {
+    const uniqueSuffix = Date.now() + "-" + file.originalname;
+    cb(null, uniqueSuffix);
+  },
+});
+
+const upload = multer({ storage: storage });
 
 // This is for posting a new post :)
-router.post("/", isAuthenticated, (req, res) => {
+router.post("/", isAuthenticated, upload.single("image"), (req, res) => {
   const now = new Date();
   const UTC = date.addHours(now, 3);
   const dateNtime = date.format(UTC, "DD/MM/YYYY HH:mm:ss", true);
@@ -19,6 +34,7 @@ router.post("/", isAuthenticated, (req, res) => {
     content: postContent,
     timestamp: dateNtime,
     channel: channelId,
+    image: path.join(__dirname, "images", req.file.filename),
   });
 
   newPost
