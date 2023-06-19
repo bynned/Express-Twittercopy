@@ -207,7 +207,6 @@ router.delete('/channels/:id', isAuthenticated, async (req, res) => {
         fs.unlinkSync(imagePath);
       }
     });
-
     await Post.deleteMany({ channel: channelToDelete._id });
 
     const posts = await Post.find({ username: username }).sort({ timestamp: -1 });
