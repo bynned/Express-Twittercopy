@@ -252,3 +252,10 @@ window.addEventListener("load", function () {
   var div = document.getElementById("Appid");
   div.classList.add("appear");
 });
+
+
+// Lightbox for opening a image
+lightbox.option({
+  'resizeDuration': 200,
+  'wrapAround': true
+});
