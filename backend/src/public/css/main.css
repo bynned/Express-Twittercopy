@@ -44,6 +44,9 @@ code {
 .comment-content {
   margin-left: 5px;
 }
+
+.comdislike-button,
+.dislike-button,
 .comlike-button,
 .like-button {
   margin: 0;
@@ -54,16 +57,18 @@ code {
   justify-content: center;
   display: flex;
 }
-.comdislike-button,
-.dislike-button{
+
+.report-post {
   margin: 0;
+  margin-left: auto;
   padding: 4px;
   width: 40px;
   height: 40px;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-end;
   display: flex;
 }
+
 .submit-button {
   margin-top: 5px;
 }
@@ -328,6 +333,7 @@ button:hover {
 .button-container {
   display: flex;
   gap: 20px;
+  align-items: center;
 }
 
 .channel-header {
