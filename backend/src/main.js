@@ -15,6 +15,7 @@ const postRouter = require("./routes/postRouter");
 const profileRouter = require("./routes/profileRouter");
 const likeNdislikeRouter = require("./routes/likeNdislikeRouter");
 const channelRouter = require("./routes/channelRouter");
+const moderateRouter = require("./routes/moderateRouter");
 const bodyParser = require('body-parser');
 const port = 4040; // Port where server is running
 const path = require("path");
@@ -52,6 +53,7 @@ app.use(postRouter);
 app.use(profileRouter);
 app.use(likeNdislikeRouter);
 app.use(channelRouter);
+app.use(moderateRouter);
 
 app.get("/", isAuthenticated, (req, res) => {
   res.redirect("/channels");
