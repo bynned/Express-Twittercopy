@@ -62,6 +62,9 @@
               <form action="/channels/<%= channel.id %>?_method=DELETE" method="POST" class="delete-channel-form">
                 <button type="submit" class="delete-channel-button">Delete</button>
               </form>
+              <form action="/channels/<%= channel.id %>/moderate" method="POST" class="moderate-channel-form">
+                <button type="submit" class="moderate-channel-button">Moderate</button>
+              </form>
             </div>
             <% }); %>
           </div>
