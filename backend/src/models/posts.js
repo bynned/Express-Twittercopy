@@ -42,6 +42,11 @@ const postsSchema = new mongoose.Schema({
       required: true,
     },
   ],
+  flagged: [
+    {
+      type: String,
+    },
+  ],
   comments: [
     {
       username: {
