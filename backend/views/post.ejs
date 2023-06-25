@@ -123,6 +123,17 @@
               <p class="comdislike-number">
                 <%= comment.comdislikedBy.length %>
               </p>
+              <button
+                class="comreport-post"
+                id="comreport-post"
+                data-postid="<%= post._id %>"
+              >
+                <img
+                  src="/icons/alert-square-svgrepo-com.svg"
+                  alt="Report"
+                  class="icon"
+                />
+              </button>
             </div>
           </div>
         </div>
@@ -140,7 +151,18 @@
         </div>
       </div>
     </div>
+    <!-- Modal HTML for comment flag -->
+    <div id="comreportModal" class="modal">
+      <div class="modal-content">
+        <h3 class="modal-text">Are you sure you want to flag this comment?</h3>
+        <div class="modal-buttons">
+          <button id="flagBtn">Flag</button>
+          <button id="cancelBtn">Cancel</button>
+        </div>
+      </div>
+    </div>
     <script src="/scripts/likeAndDislike.js"></script>
     <script src="/scripts/reportPost.js"></script>
+    <script src="/scripts/reportCom.js"></script>
   </body>
 </html>

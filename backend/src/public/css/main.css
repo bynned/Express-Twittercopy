@@ -58,8 +58,10 @@ code {
   display: flex;
 }
 
+.comreport-post,
 .report-post {
   margin: 0;
+  margin-right: 5px;
   margin-left: auto;
   padding: 4px;
   width: 40px;
