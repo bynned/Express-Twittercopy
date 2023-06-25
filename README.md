@@ -1,8 +1,12 @@
 ![logo png](https://github.com/bynned/HushHub/assets/99414068/f5242a06-bfe1-466d-9811-4a48b5231592)
 
-Through HushHub, teachers can create dedicated channels for their courses, while students have the freedom to join these channels and seek answers anonymously from their peers and the teacher, who remains incognito as well. This platform acts as a stepping stone towards better questioning practices, promoting an environment where curiosity flourishes without fear.
+HushHub is a game-changing platform that transforms the learning experience for students and teachers. It allows teachers to create dedicated channels for their courses, while enabling students to join anonymously and seek answers from both their peers and the teacher, who remains incognito.
 
-No longer shall students feel alone or isolated, HushHub enables them to express their inquiries without the weight of judgment. It provides a new realm of possibility, where individuals suffering from the fear of asking questions can find solace and embrace knowledge with confidence.
+With HushHub, students no longer have to feel alone or judged when asking questions. They can freely express their inquiries and embrace knowledge with confidence, knowing that their anonymity is protected.
+
+This platform creates a safe space where curiosity flourishes and fosters better questioning practices. It breaks down barriers and encourages active participation, empowering students to explore and learn without fear.
+
+HushHub is a step forward in promoting a positive learning environment, where both students and teachers can engage in meaningful dialogue and uncover new depths of understanding.
 
 ## How to install:
 >Git clone
@@ -37,6 +41,8 @@ The features of HushHub include
   - Liking or disliking posts
   - Comment on posts
   - Like or dislike comments
+  - Post pictures
+  - Flag posts or comments for the channel admin to check
 
 
 
