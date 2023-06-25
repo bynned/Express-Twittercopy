@@ -39,7 +39,7 @@
             <img src="/icons/thumbs-down-svgrepo-com.svg" alt="Dislike" class="icon">
           </button>
         <p class="dislike-number"><%= post.dislikedBy.length %></p>
-          <button class="report-post" id="report-post">
+          <button class="report-post" id="report-post" data-postid="<%= post._id %>">
             <img src="/icons/alert-square-svgrepo-com.svg" alt="Report" class="icon">
           </button>
       </div>
@@ -80,5 +80,6 @@
       </div>
     </div>
     <script src="/scripts/likeAndDislike.js"></script>
+    <script src="/scripts/reportPost.js"></script>
   </body>
 </html>

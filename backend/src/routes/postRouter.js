@@ -105,6 +105,28 @@ router.post("/post/:postId", isAuthenticated, async (req, res) => {
   }
 });
 
+// Route for flagging a post.
+router.post("/post/:postId/report-post", isAuthenticated, checkChannelPostMembership, async (req, res) => {
+  try {
+    const postId = req.body.postId;
+    const username = req.session.username;
+    const post = await Post.findById(postId);
+
+    // Add the username to the flagged array if it's not already present
+    if (!post.flagged.includes(username)) {
+      post.flagged.push(username);
+    }
+
+    // Save the updated post
+    await post.save();
+
+    res.status(200).json({ message: "Post successfully flagged." });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Error flagging the post." });
+  }
+});
+
 function isAuthenticated(req, res, next) {
   if (req.session && req.session.username) {
     return next();
