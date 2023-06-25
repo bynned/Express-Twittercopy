@@ -73,6 +73,11 @@ const postsSchema = new mongoose.Schema({
           required: true,
         },
       ],
+      comflagged: [
+        {
+          type: String,
+        },
+      ],
     },
   ],
 });
