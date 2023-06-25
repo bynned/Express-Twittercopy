@@ -10,7 +10,28 @@
 <body>
     <div class="App-userpage" id="Appid">
         <h1>Moderate</h1>
+      <div class="user-content">
+        <div class="posts">
+            <h2>Flagged Posts:</h2>
+            <% flaggedPosts.forEach((post) => { %>
+                <div class="post">
+                    <h3><%= post.title %></h3>
+                    <div class="post-content">
+                    <p><%= post.content %></p>
+                    <div class="post-stats">
+                        <a href="/post/<%= post._id %>"><button>Open Post</button></a>
+                        <p>Flagged by: <%= post.flagged.length %> people</p>
+                    </div>
+                    </div>
+                </div>
+            <% }); %>
+        </div>
+        <div class="user-channels">
+            <h2>Flagged Comments:</h2>
+        </div>
+      </div>
     </div>
+
     <script>
         window.addEventListener("load", function () {
           var div = document.getElementById("Appid");
