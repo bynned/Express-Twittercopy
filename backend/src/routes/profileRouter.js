@@ -17,7 +17,7 @@ const checkProfileOwnership = (req, res, next) => {
   next();
 };
 
-router.get("/profile/:username", checkProfileOwnership, (req, res) => {
+router.get("/profile/:username", checkProfileOwnership, isAuthenticated, (req, res) => {
   const { username } = req.params;
 
   User.findOne({ username: username })
@@ -71,5 +71,12 @@ router.get("/profile/:username", checkProfileOwnership, (req, res) => {
       });
     });
 });
+
+function isAuthenticated(req, res, next) {
+  if (req.session && req.session.username) {
+    return next();
+  }
+  res.redirect("/login");
+}
 
 module.exports = router;
