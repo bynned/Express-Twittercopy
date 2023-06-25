@@ -3,18 +3,29 @@
   <head>
     <title>HushHub - <%= post.title %></title>
     <link href="/css/main.css" rel="stylesheet" type="text/css" />
-    <link rel="stylesheet" href="node_modules/lightbox2/dist/css/lightbox.css">
+    <link
+      rel="stylesheet"
+      href="node_modules/lightbox2/dist/css/lightbox.css"
+    />
   </head>
   <body>
     <div class="header-link">
       <h1 class="header-title">
-          <form action="/profile/<%= username %>" method="GET" class="my-profile-button">
-            <button type="submit">My profile</button>
-          </form>
+        <form
+          action="/profile/<%= username %>"
+          method="GET"
+          class="my-profile-button"
+        >
+          <button type="submit">My profile</button>
+        </form>
         <a href="/channels">
           <img src="/icons/logo.png" alt="Logo" class="logo-image" />
         </a>
-        <form action="/logout?_method=DELETE" method="POST" class="log-out-button">
+        <form
+          action="/logout?_method=DELETE"
+          method="POST"
+          class="log-out-button"
+        >
           <button type="submit">Log Out</button>
         </form>
       </h1>
@@ -24,24 +35,44 @@
       <div class="post">
         <div class="post-content">
           <a href="<%= image %>" data-lightbox="postLightbox">
-            <img src="<%= image %>" class="postImage"/>
+            <img src="<%= image %>" class="postImage" />
           </a>
           <p><%= post.content %></p>
           <p><%= post.timestamp %></p>
         </div>
       </div>
       <div class="button-container">
-          <button class="like-button" id="like-button" data-postid="<%= post._id %>">
-            <img src="/icons/thumbs-up-svgrepo-com.svg" alt="Like" class="icon">
-          </button>
+        <button
+          class="like-button"
+          id="like-button"
+          data-postid="<%= post._id %>"
+        >
+          <img src="/icons/thumbs-up-svgrepo-com.svg" alt="Like" class="icon" />
+        </button>
         <p class="like-number"><%= post.likedBy.length %></p>
-          <button class="dislike-button" id="dislike-button" data-postid="<%= post._id %>">
-            <img src="/icons/thumbs-down-svgrepo-com.svg" alt="Dislike" class="icon">
-          </button>
+        <button
+          class="dislike-button"
+          id="dislike-button"
+          data-postid="<%= post._id %>"
+        >
+          <img
+            src="/icons/thumbs-down-svgrepo-com.svg"
+            alt="Dislike"
+            class="icon"
+          />
+        </button>
         <p class="dislike-number"><%= post.dislikedBy.length %></p>
-          <button class="report-post" id="report-post" data-postid="<%= post._id %>">
-            <img src="/icons/alert-square-svgrepo-com.svg" alt="Report" class="icon">
-          </button>
+        <button
+          class="report-post"
+          id="report-post"
+          data-postid="<%= post._id %>"
+        >
+          <img
+            src="/icons/alert-square-svgrepo-com.svg"
+            alt="Report"
+            class="icon"
+          />
+        </button>
       </div>
       <div class="comment-section">
         <h3>Add a Comment:</h3>
@@ -56,27 +87,57 @@
       </div>
       <div class="comments">
         <div class="comment-title-and-dropdown">
-        <h3>Comments:</h3>
-      </div>
-      <% post.comments.forEach(function(comment, index) { %>
+          <h3>Comments:</h3>
+        </div>
+        <% post.comments.forEach(function(comment, index) { %>
         <div class="comment">
-         <div class="comment-content">
-          <h3><%= comment.content %></h3>
-          <p><%= comment.timestamp %></p>
-          <div class="button-container">
-              <button class="comlike-button" id="comlike-button" data-commentid="<%= comment._id %>" data-postid="<%= post._id %>">
-                <img src="/icons/thumbs-up-svgrepo-com.svg" alt="Like" class="icon">
+          <div class="comment-content">
+            <h3><%= comment.content %></h3>
+            <p><%= comment.timestamp %></p>
+            <div class="button-container">
+              <button
+                class="comlike-button"
+                id="comlike-button"
+                data-commentid="<%= comment._id %>"
+                data-postid="<%= post._id %>"
+              >
+                <img
+                  src="/icons/thumbs-up-svgrepo-com.svg"
+                  alt="Like"
+                  class="icon"
+                />
               </button>
               <p class="comlike-number"><%= comment.comlikedBy.length %></p>
-              <button class="comdislike-button" id="comdislike-button" data-commentid="<%= comment._id %>" data-postid="<%= post._id %>">
-                <img src="/icons/thumbs-down-svgrepo-com.svg" alt="Dislike" class="icon">
+              <button
+                class="comdislike-button"
+                id="comdislike-button"
+                data-commentid="<%= comment._id %>"
+                data-postid="<%= post._id %>"
+              >
+                <img
+                  src="/icons/thumbs-down-svgrepo-com.svg"
+                  alt="Dislike"
+                  class="icon"
+                />
               </button>
-              <p class="comdislike-number"><%= comment.comdislikedBy.length %></p>
+              <p class="comdislike-number">
+                <%= comment.comdislikedBy.length %>
+              </p>
+            </div>
           </div>
-         </div>
         </div>
         <br />
         <% }); %>
+      </div>
+    </div>
+    <!-- Modal HTML -->
+    <div id="reportModal" class="modal">
+      <div class="modal-content">
+        <h3 class="modal-text">Are you sure you want to flag this post?</h3>
+        <div class="modal-buttons">
+          <button id="flagBtn">Flag</button>
+          <button id="cancelBtn">Cancel</button>
+        </div>
       </div>
     </div>
     <script src="/scripts/likeAndDislike.js"></script>
