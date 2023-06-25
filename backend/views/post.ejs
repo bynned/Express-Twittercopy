@@ -126,6 +126,7 @@
               <button
                 class="comreport-post"
                 id="comreport-post"
+                data-commentid="<%= comment._id %>"
                 data-postid="<%= post._id %>"
               >
                 <img
@@ -156,8 +157,8 @@
       <div class="modal-content">
         <h3 class="modal-text">Are you sure you want to flag this comment?</h3>
         <div class="modal-buttons">
-          <button id="flagBtn">Flag</button>
-          <button id="cancelBtn">Cancel</button>
+          <button id="comflagBtn">Flag</button>
+          <button id="comcancelBtn">Cancel</button>
         </div>
       </div>
     </div>

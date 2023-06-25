@@ -127,6 +127,30 @@ router.post("/post/:postId/report-post", isAuthenticated, checkChannelPostMember
   }
 });
 
+// Route for flagging a comment
+router.post("/post/:postId/:commentId/report-comment", isAuthenticated, async (req, res) => {
+  try {
+    const postId = req.params.postId;
+    const commentId = req.params.commentId;
+    const post = await Post.findById(postId);
+    const comment = post.comments.id(commentId);
+    const username = req.session.username;
+
+    // Add the username to the flagged array if it's not already present
+    if (!comment.comflagged.includes(username)) {
+      comment.comflagged.push(username);
+    }
+
+    // Save the updated post
+    await post.save();
+
+    res.status(200).json({ message: "Comment successfully flagged." });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Error flagging the comment." });
+  }
+});
+
 function isAuthenticated(req, res, next) {
   if (req.session && req.session.username) {
     return next();
