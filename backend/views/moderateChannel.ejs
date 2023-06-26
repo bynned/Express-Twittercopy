@@ -29,16 +29,17 @@
         <div class="user-channels">
           <h2>Flagged Comments:</h2>
           <% flaggedComments.forEach((comment) => { %>
-          <div class="post">
-            <div class="post-content">
-              <p><%= comment.comments.content %></p>
-              <div class="post-stats">
-                <a href="/post/<%= comment.post %>"><button>Open Post</button></a>
-                <p>Flagged by: <%= comment.comments.comflagged.length %> people</p>
+            <div class="post">
+              <div class="post-content">
+                <p><%= comment.comments[0].content %></p>
+                <div class="post-stats">
+                  <a href="/post/<%= comment._id %>"><button>Open Post</button></a>
+                  <p>Flagged by: <%= comment.comments[0].comflagged.length %> people</p>
+                </div>
               </div>
             </div>
-          </div>
           <% }); %>
+          
         </div>
       </div>
     </div>
