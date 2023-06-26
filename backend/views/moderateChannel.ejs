@@ -1,42 +1,53 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link href="/css/main.css" rel="stylesheet" type="text/css" />
     <title>HushHub Moderate</title>
-</head>
-<body>
+  </head>
+  <body>
     <div class="App-userpage" id="Appid">
-        <h1>Moderate: <%= channelName %></h1>
+      <h1>Moderate: <%= channelName %></h1>
       <div class="user-content">
         <div class="posts">
-            <h2>Flagged Posts:</h2>
-            <% flaggedPosts.forEach((post) => { %>
-                <div class="post">
-                    <h3><%= post.title %></h3>
-                    <div class="post-content">
-                    <p><%= post.content %></p>
-                    <div class="post-stats">
-                        <a href="/post/<%= post._id %>"><button>Open Post</button></a>
-                        <p>Flagged by: <%= post.flagged.length %> people</p>
-                    </div>
-                    </div>
-                </div>
-            <% }); %>
+          <h2>Flagged Posts:</h2>
+          <% flaggedPosts.forEach((post) => { %>
+          <div class="post">
+            <h3><%= post.title %></h3>
+            <div class="post-content">
+              <p><%= post.content %></p>
+              <div class="post-stats">
+                <a href="/post/<%= post._id %>"><button>Open Post</button></a>
+                <p>Flagged by: <%= post.flagged.length %> people</p>
+              </div>
+            </div>
+          </div>
+          <% }); %>
         </div>
         <div class="user-channels">
-            <h2>Flagged Comments:</h2>
+          <h2>Flagged Comments:</h2>
+          <% flaggedComments.forEach((comment) => { %>
+          <div class="post">
+            <div class="post-content">
+              <p><%= comment.comments.content %></p>
+              <div class="post-stats">
+                <a href="/post/<%= comment.post %>"><button>Open Post</button></a>
+                <p>Flagged by: <%= comment.comments.comflagged.length %> people</p>
+              </div>
+            </div>
+          </div>
+          <% }); %>
         </div>
       </div>
     </div>
 
     <script>
-        window.addEventListener("load", function () {
-          var div = document.getElementById("Appid");
-          div.classList.add("appear");
-        });
+      window.addEventListener("load", function () {
+        var div = document.getElementById("Appid");
+        div.classList.add("appear");
+      });
     </script>
-</body>
+  </body>
 </html>
