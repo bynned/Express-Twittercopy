@@ -9,20 +9,23 @@ router.get("/channels/:id/moderate", isAuthenticated, checkUserChannelMembership
   try {
     const channelId = req.params.id;
     const channel = await Channel.findById(channelId);
+    // Return a post with a populated flagged, and only from that channel that is being moderated
     const flaggedPosts = await Post.find({ channel: channelId, flagged: { $exists: true, $not: { $size: 0 } } });
+    // Return comment from channelID that has populated comflagged.
     const flaggedComments = await Post.find(
       { 
         channel: channelId,
         comments: { 
           $elemMatch: { 
-            comflagged: { $exists: true, $ne: [] } 
+            comflagged: { $exists: true, $not: { $size: 0 } } 
           } 
         } 
       },
-      { "comments.content": 1, "comments.comflagged": 1, post: "$_id" }
     );
+    console.log("FlaggedComments");
     console.log(JSON.stringify(flaggedComments));
-    console.log("FlaggedPosts: ",flaggedPosts);
+    console.log("FlaggedPosts:");
+    console.log(JSON.stringify(flaggedPosts));
     res.render("moderateChannel.ejs", { channelName: channel.name, flaggedPosts, flaggedComments });
   } catch (error) {
     console.error(error);

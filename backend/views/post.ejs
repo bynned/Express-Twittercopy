@@ -125,7 +125,7 @@
               </p>
               <button
                 class="comreport-post"
-                id="comreport-post"
+                id="comreport-post-<%= comment._id %>"
                 data-commentid="<%= comment._id %>"
                 data-postid="<%= post._id %>"
               >
@@ -139,6 +139,18 @@
           </div>
         </div>
         <br />
+        <!-- Modal HTML for comment flag -->
+        <div id="comreportModal-<%= comment._id %>" class="modal">
+          <div class="modal-content">
+            <h3 class="modal-text">
+              Are you sure you want to flag this comment?
+            </h3>
+            <div class="modal-buttons">
+              <button id="comflagBtn">Flag</button>
+              <button id="comcancelBtn">Cancel</button>
+            </div>
+          </div>
+        </div>
         <% }); %>
       </div>
     </div>
@@ -149,16 +161,6 @@
         <div class="modal-buttons">
           <button id="flagBtn">Flag</button>
           <button id="cancelBtn">Cancel</button>
-        </div>
-      </div>
-    </div>
-    <!-- Modal HTML for comment flag -->
-    <div id="comreportModal" class="modal">
-      <div class="modal-content">
-        <h3 class="modal-text">Are you sure you want to flag this comment?</h3>
-        <div class="modal-buttons">
-          <button id="comflagBtn">Flag</button>
-          <button id="comcancelBtn">Cancel</button>
         </div>
       </div>
     </div>
