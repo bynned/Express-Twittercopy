@@ -29,7 +29,7 @@ router.get("/channels/:id/moderate", isAuthenticated, checkUserChannelMembership
   }
 });
 
-router.post('/channels/:postId/comments/:commentId/clear-flags', async (req, res) => {
+router.post('/channels/:postId/comments/:commentId/clear-flags',isAuthenticated, checkUserChannelMembership, async (req, res) => {
   const postId = req.body.postId;
   const commentId = req.body.commentId;
 
