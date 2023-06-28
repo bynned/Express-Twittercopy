@@ -21,6 +21,10 @@
               <div class="post-stats">
                 <a href="/post/<%= post._id %>"><button>Open Post</button></a>
                 <p>Flagged by: <%= post.flagged.length %> people</p>
+                <form action="/channels/<%= post._id %>/clear-flags" method="POST">
+                  <input type="hidden" name="postId" value="<%= post._id %>" />
+                  <button type="submit">Clear flags</button>
+                </form>
               </div>
             </div>
           </div>
