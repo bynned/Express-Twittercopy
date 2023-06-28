@@ -29,6 +29,33 @@ router.get("/channels/:id/moderate", isAuthenticated, checkUserChannelMembership
   }
 });
 
+/*
+router.delete("/channels/:commentId", (req, res) => {
+  const commentId = req.body.commentId;
+  const comIndex = req.body.comIndex; 
+  console.log("clear flags of comment called");
+  // Logic to clear the contents of the comflagged array for the specified comment
+
+  if (commentId && comIndex >= 0 && comIndex < flaggedComments.length) {
+    const comment = flaggedComments.find((comment) => comment._id === commentId);
+
+    if (comment) {
+      if (comIndex >= 0 && comIndex < comment.comments.length) {
+        comment.comments[comIndex].comflagged = []; // Clear the comflagged array
+
+        res.sendStatus(200);
+      } else {
+        res.sendStatus(404);
+      }
+    } else {
+      res.sendStatus(404);
+    }
+  } else {
+    res.sendStatus(400);
+  }
+});
+
+*/
 
 
 

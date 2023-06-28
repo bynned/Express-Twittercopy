@@ -49,10 +49,6 @@ const postsSchema = new mongoose.Schema({
   ],
   comments: [
     {
-      _id: {
-        type: mongoose.Schema.Types.ObjectId,
-        default: mongoose.Types.ObjectId,
-      },
       username: {
         type: String,
         required: true,

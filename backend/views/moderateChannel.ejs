@@ -28,25 +28,26 @@
         </div>
         <div class="user-channels">
           <h2>Flagged Comments:</h2>
-          <% flaggedComments.forEach((comment) => {
-            comment.comments.forEach((com) => {
-              if (com.comflagged.length > 0) {
-          %>
-            <div class="post">
-              <div class="post-content">
-                <p><%= com.content %></p>
-                <div class="post-stats">
-                  <a href="/post/<%= comment._id %>"><button>Open Post</button></a>
-                  <p>Flagged by: <%= com.comflagged.length %> people</p>
+          <% flaggedComments.forEach((comment) => { %>
+           <% comment.comments.forEach((com) => { %>
+             <% if (com.comflagged.length > 0) { %>
+                <div class="post">
+                  <div class="post-content">
+                    <p><%= com.content %></p>
+                    <div class="post-stats">
+                      <a href="/post/<%= comment._id %>">
+                        <button>Open Post</button>
+                      </a>
+                      <p>Flagged by: <%= com.comflagged.length %> people</p>
+                      <form action="/channels/<%= com._id %>?_method=DELETE" method="POST">
+                        <input type="hidden" name="commentId" value="<%= com._id %>" />
+                        <button type="submit">Clear flags</button>
+                      </form>
+                    </div>
+                  </div>
                 </div>
-              </div>
-            </div>
-          <% }
-            });
-          }); %>
-          
-          
-        </div>
+          <% } }); }); %>
+        </div>        
       </div>
     </div>
 
