@@ -29,33 +29,33 @@ router.get("/channels/:id/moderate", isAuthenticated, checkUserChannelMembership
   }
 });
 
-/*
-router.delete("/channels/:commentId", (req, res) => {
+router.post('/channels/:postId/comments/:commentId/clear-flags', async (req, res) => {
+  const postId = req.body.postId;
   const commentId = req.body.commentId;
-  const comIndex = req.body.comIndex; 
-  console.log("clear flags of comment called");
-  // Logic to clear the contents of the comflagged array for the specified comment
 
-  if (commentId && comIndex >= 0 && comIndex < flaggedComments.length) {
-    const comment = flaggedComments.find((comment) => comment._id === commentId);
+  try {
+    const post = await Post.findById(postId);
 
-    if (comment) {
-      if (comIndex >= 0 && comIndex < comment.comments.length) {
-        comment.comments[comIndex].comflagged = []; // Clear the comflagged array
+    if (post) {
+      const comment = post.comments.id(commentId);
 
-        res.sendStatus(200);
+      if (comment) {
+        comment.comflagged = []; // Clear the comflagged array
+        await post.save();
+        const channelId = post.channel;
+        res.redirect(`/channels/${channelId}/moderate`);
       } else {
-        res.sendStatus(404);
+        res.status(404).send("Comment was not found");
       }
     } else {
-      res.sendStatus(404);
+      res.status(404).send("Comment was not found");
     }
-  } else {
-    res.sendStatus(400);
+  } catch (error) {
+    res.status(500).send("Error clearing flags");
   }
 });
 
-*/
+
 
 
 
