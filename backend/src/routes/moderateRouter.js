@@ -22,10 +22,6 @@ router.get("/channels/:id/moderate", isAuthenticated, checkUserChannelMembership
         } 
       },
     );
-    console.log("FlaggedComments");
-    console.log(JSON.stringify(flaggedComments));
-    console.log("FlaggedPosts:");
-    console.log(JSON.stringify(flaggedPosts));
     res.render("moderateChannel.ejs", { channelName: channel.name, flaggedPosts, flaggedComments });
   } catch (error) {
     console.error(error);
