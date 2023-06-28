@@ -30,6 +30,8 @@ router.post("/login", function (req, res) {
             { expiresIn: "24h" }
           );
           res.status(200);
+          console.log("UserId: ",req.session.userId.toString());
+          console.log("Username: ",req.session.username);
           res.redirect("/channels");
         }
       }

@@ -4,6 +4,7 @@ const checkUserChannelMembership = require("../middleware/checkUserChannelMember
 const Post = require("../models/posts");
 const Channel = require("../models/channel");
 const mongoose = require("mongoose");
+const checkChannelOwnership = require("../middleware/checkChannelOwnership");
 
 router.get("/channels/:id/moderate", isAuthenticated, checkUserChannelMembership, async (req, res) => {
   try {
@@ -22,14 +23,14 @@ router.get("/channels/:id/moderate", isAuthenticated, checkUserChannelMembership
         } 
       },
     );
-    res.render("moderateChannel.ejs", { channelName: channel.name, flaggedPosts, flaggedComments });
+    res.render("moderateChannel.ejs", { channelName: channel.name, flaggedPosts, flaggedComments, channelId: channelId });
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Error retrieving flagged posts and comments." });
   }
 });
 
-router.post('/channels/:postId/comments/:commentId/clear-flags',isAuthenticated, checkUserChannelMembership, async (req, res) => {
+router.post('/channels/:postId/comments/:commentId/clear-flags',isAuthenticated, checkChannelOwnership, async (req, res) => {
   const postId = req.body.postId;
   const commentId = req.body.commentId;
 
@@ -49,6 +50,26 @@ router.post('/channels/:postId/comments/:commentId/clear-flags',isAuthenticated,
       }
     } else {
       res.status(404).send("Comment was not found");
+    }
+  } catch (error) {
+    res.status(500).send("Error clearing flags");
+  }
+});
+
+router.post('/channels/:postId/clear-flags', isAuthenticated, checkChannelOwnership, async (req, res) => {
+  const postId = req.body.postId;
+
+  try {
+    const post = await Post.findById(postId);
+
+    if (post) {
+      post.flagged = []; // Clear the flagged arrray
+      await post.save();
+
+      const channelId = post.channel; // Get the channelID
+      res.redirect(`/channels/${channelId}/moderate`);
+    } else {
+      res.status(404).send("Post was not found");
     }
   } catch (error) {
     res.status(500).send("Error clearing flags");
