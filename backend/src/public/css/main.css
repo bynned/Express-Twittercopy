@@ -241,7 +241,7 @@ code {
 
   }
   .post-stats button {
-    margin-right: 160px;
+    margin-right: 10px;
   }
   .post-stats {
     display: flex;
@@ -250,7 +250,7 @@ code {
   }
 
   .post-stats p {
-    margin-right: 20px;
+    margin-left: 20px;
   }
 .App {
   max-width: 600px;
