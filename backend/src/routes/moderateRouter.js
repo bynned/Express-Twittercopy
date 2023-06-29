@@ -76,6 +76,32 @@ router.post('/channels/:postId/clear-flags', isAuthenticated, checkChannelOwners
   }
 });
 
+router.delete('/channels/:commentId/comments/:comId', async (req, res) => {
+  const commentId = req.body.commentId;
+  const postId = req.body.postId;
+  const channelId = req.body.channelId;
+
+  try {
+    const post = await Post.findById(postId);
+
+    if (post) {
+      const commentIndex = post.comments.findIndex((comment) => comment._id.toString() === commentId);
+      if (commentIndex !== -1) {
+        post.comments.splice(commentIndex, 1); // Remove the comment from the array
+
+        await post.save();
+
+        res.redirect(`/channels/${channelId}/moderate`);
+      } else {
+        res.status(404).send("Comment was not found");
+      }
+    }
+  } catch (error) {
+    res.status(500).send("Error deleting comment");
+    console.error(error);
+  }
+});
+
 
 
 

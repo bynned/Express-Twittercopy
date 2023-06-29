@@ -53,7 +53,10 @@
                         <input type="hidden" name="channelId" value="<%= channelId %>" />
                         <button type="submit">Clear flags</button>
                       </form>
-                      <form>
+                      <form action="/channels/<%= comment._id %>/comments/<%= com._id %>?_method=DELETE" method="POST">
+                        <input type="hidden" name="commentId" value="<%= com._id %>" />
+                        <input type="hidden" name="postId" value="<%= comment._id %>" />
+                        <input type="hidden" name="channelId" value="<%= channelId %>" />
                         <button type="submit" class="delete-channel-button">Delete comment</button>
                       </form>
                     </div>
