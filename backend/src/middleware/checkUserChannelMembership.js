@@ -1,4 +1,3 @@
-const channel = require("../models/channel");
 const User = require("../models/users");
 
 

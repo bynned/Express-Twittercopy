@@ -4,11 +4,7 @@ const checkChannelOwnership = async (req, res, next) => {
     const userId = req.session.userId.toString();
   
     try {
-      console.log("ChannelId: ", channelId);
       const channel = await Channel.findById(channelId);
-      console.log("Channel: ", channel);
-      console.log("UserId: ",userId);
-      console.log("Channel owner to string: ", channel.owner.toString())
   
       if (channel && channel.owner.toString() === userId) {
         // User is the owner of the channel
