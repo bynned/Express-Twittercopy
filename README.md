@@ -43,6 +43,7 @@ The features of HushHub include
   - Like or dislike comments
   - Post pictures
   - Flag posts or comments for the channel admin to check
+  - The channel admin can now delete a flagged comment or a post from the moderation page
 
 
 
