@@ -30,6 +30,7 @@ router.get("/channels/:id/moderate", isAuthenticated, checkUserChannelMembership
   }
 });
 
+// This clears the flag of a comment, this is done from the moderation page
 router.post('/channels/:postId/comments/:commentId/clear-flags',isAuthenticated, checkChannelOwnership, async (req, res) => {
   const postId = req.body.postId;
   const commentId = req.body.commentId;
@@ -56,6 +57,7 @@ router.post('/channels/:postId/comments/:commentId/clear-flags',isAuthenticated,
   }
 });
 
+// Clears the flags from a post. this is done from the channels moderation page
 router.post('/channels/:postId/clear-flags', isAuthenticated, checkChannelOwnership, async (req, res) => {
   const postId = req.body.postId;
 
@@ -76,7 +78,9 @@ router.post('/channels/:postId/clear-flags', isAuthenticated, checkChannelOwners
   }
 });
 
-router.delete('/channels/:commentId/comments/:comId', async (req, res) => {
+
+// Delete a flagged comment from the moderation page
+router.delete('/channels/:commentId/comments/:comId', isAuthenticated, checkChannelOwnership, async (req, res) => {
   const commentId = req.body.commentId;
   const postId = req.body.postId;
   const channelId = req.body.channelId;
