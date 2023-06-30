@@ -5,6 +5,7 @@ const Post = require("../models/posts");
 const Channel = require("../models/channel");
 const mongoose = require("mongoose");
 const checkChannelOwnership = require("../middleware/checkChannelOwnership");
+const channel = require("../models/channel");
 
 router.get("/channels/:id/moderate", isAuthenticated, checkUserChannelMembership, async (req, res) => {
   try {
@@ -106,7 +107,26 @@ router.delete('/channels/:commentId/comments/:comId', isAuthenticated, checkChan
   }
 });
 
+// Delete a flagged post.
+router.delete('/channels/:channelId/:postId', isAuthenticated, checkChannelOwnership, async (req, res) => {
+  const channelId = req.params.channelId;
+  const postId = req.params.postId;
 
+  try {
+    const post = await Post.findById(postId);
+
+    if (post) {
+      await post.deleteOne(); // Delete the post
+
+      res.redirect(`/channels/${channelId}/moderate`); // Redirect back to the moderation page
+    } else {
+      res.status(404).send("Channel was not found");
+    }
+  } catch (error) {
+    res.status(500).send("Error deletind channel");
+    console.log(error);
+  }
+});
 
 
 
