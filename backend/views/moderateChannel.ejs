@@ -8,6 +8,27 @@
     <title>HushHub Moderate</title>
   </head>
   <body>
+    <div class="header-link">
+      <h1 class="header-title">
+        <form
+          action="/profile/<%= username %>"
+          method="GET"
+          class="my-profile-button"
+        >
+          <button type="submit">My profile</button>
+        </form>
+        <a href="/channels">
+          <img src="/icons/logo.png" alt="Logo" class="logo-image" />
+        </a>
+        <form
+          action="/logout?_method=DELETE"
+          method="POST"
+          class="log-out-button"
+        >
+          <button type="submit">Log Out</button>
+        </form>
+      </h1>
+    </div>
     <div class="App-userpage" id="Appid">
       <h1>Moderate: <%= channelName %></h1>
       <div class="user-content">
@@ -67,7 +88,15 @@
         </div>        
       </div>
     </div>
-
+    <div id="deleteChannelModal" class="modal">
+      <div class="modal-content">
+        <h3 class="modal-text">Are you sure you want to delete this channel?</h3>
+        <div class="modal-buttons">
+          <button id="deleteChannelBtn">Delete</button>
+          <button id="cancelBtn">Cancel</button>
+        </div>
+      </div>
+    </div>
     <script>
       window.addEventListener("load", function () {
         var div = document.getElementById("Appid");

@@ -9,6 +9,7 @@ const channel = require("../models/channel");
 
 router.get("/channels/:id/moderate", isAuthenticated, checkUserChannelMembership, async (req, res) => {
   try {
+    const username = req.session.username;
     const channelId = req.params.id;
     const channel = await Channel.findById(channelId);
     // Return a post with a populated flagged, and only from that channel that is being moderated
@@ -24,7 +25,7 @@ router.get("/channels/:id/moderate", isAuthenticated, checkUserChannelMembership
         } 
       },
     );
-    res.render("moderateChannel.ejs", { channelName: channel.name, flaggedPosts, flaggedComments, channelId: channelId });
+    res.render("moderateChannel.ejs", { channelName: channel.name, username: username, flaggedPosts, flaggedComments, channelId: channelId });
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Error retrieving flagged posts and comments." });
