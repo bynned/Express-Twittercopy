@@ -187,11 +187,13 @@ code {
     padding: 2px;
     margin-bottom: 10px;
     border-radius: 5px;
+    max-width: 540px;
   }
 
   .channel-link {
     color: inherit;
     text-decoration: none;
+    word-break: break-all;
   }
 
   .icon {
@@ -215,8 +217,13 @@ code {
     align-items: center;
   }
 
-  .delete-channel-form {
-    margin-left: auto;
+  .channel-button-container {
+    display: flex;
+    flex-direction: column;
+  }
+  .delete-channel-form,
+  .moderate-channel-form {
+    margin-bottom: 10px;
   }
 
 .error-container {

@@ -59,12 +59,14 @@
               <a href="/channels/<%= channel.id %>" class="channel-link">
                 <h1><%= channel.name %></h1>
               </a>
+              <div class="channel-button-container">
               <form action="/channels/<%= channel.id %>?_method=DELETE" method="POST" class="delete-channel-form">
                 <button type="submit" class="delete-channel-button">Delete</button>
               </form>
               <form action="/channels/<%= channel.id %>/moderate" method="GET" class="moderate-channel-form">
                 <button type="submit" class="moderate-channel-button">Moderate</button>
               </form>
+              </div>
             </div>
             <% }); %>
           </div>
