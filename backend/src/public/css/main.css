@@ -239,13 +239,17 @@ code {
     border-radius: 5px;
     background-color: #F3A83C;
     align-items: center;
+    max-width: 680px;
   }
 
   .post-content {
     background-color: #3e3e42;
     padding: 10px;
     border-radius: 5px;
-
+    word-break: break-all;
+  }
+  .post-title {
+    word-break: break-all;
   }
   .post-stats button {
     margin-right: 10px;
