@@ -217,6 +217,10 @@ code {
     align-items: center;
   }
 
+  .channel-name {
+    word-break: break-all;
+  }
+
   .channel-button-container {
     display: flex;
     flex-direction: column;
