@@ -64,7 +64,7 @@
         <% posts.forEach((post) => { %>
         <div class="post">
           <div class="post-content">
-            <h2><%= post.title %></h2>
+            <h2 class="post-title"><%= post.title %></h2>
             <p><%= post.timestamp %></p>
             <div class="post-stats">
               <a href="/post/<%= post._id %>"><button>Open Post</button></a>

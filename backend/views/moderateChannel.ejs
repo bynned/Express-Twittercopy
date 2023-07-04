@@ -29,19 +29,19 @@
         </form>
       </h1>
     </div>
-    <div class="App-userpage" id="Appid">
-      <h1>Moderate: <%= channelName %></h1>
+    <div class="App-moderatepage" id="Appid">
+      <h1 class="channel-name">Moderate: <%= channelName %></h1>
       <div class="user-content">
         <div class="posts">
           <h2>Flagged Posts:</h2>
           <% flaggedPosts.forEach((post) => { %>
-          <div class="post">
-            <h3><%= post.title %></h3>
+          <div class="flagged-post">
+            <h3 class="post-title"><%= post.title %></h3>
             <div class="post-content">
               <p><%= post.content %></p>
               <div class="post-stats">
                 <a href="/post/<%= post._id %>"><button>Open Post</button></a>
-                <p>Flagged by: <%= post.flagged.length %> people</p>
+                <p class="flag-count"><%= post.flagged.length %> Flags</p>
                 <form action="/channels/<%= post._id %>/clear-flags" method="POST">
                   <input type="hidden" name="postId" value="<%= post._id %>" />
                   <input type="hidden" name="channelId" value="<%= channelId %>" />
@@ -61,14 +61,14 @@
           <% flaggedComments.forEach((comment) => { %>
            <% comment.comments.forEach((com) => { %>
              <% if (com.comflagged.length > 0) { %>
-                <div class="post">
+                <div class="flagged-post">
                   <div class="post-content">
                     <p><%= com.content %></p>
                     <div class="post-stats">
                       <a href="/post/<%= comment._id %>">
                         <button>Open Post</button>
                       </a>
-                      <p>Flagged by: <%= com.comflagged.length %> people</p>
+                      <p class="flag-count"><%= com.comflagged.length %> Flags</p>
                       <form action="/channels/<%= comment._id %>/comments/<%= com._id %>/clear-flags" method="POST">
                         <input type="hidden" name="commentId" value="<%= com._id %>" />
                         <input type="hidden" name="postId" value="<%= comment._id %>" />
