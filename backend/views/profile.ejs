@@ -61,24 +61,29 @@
               </a>
               <div class="channel-button-container">
               <form action="/channels/<%= channel.id %>?_method=DELETE" method="POST" class="delete-channel-form">
-                <button type="submit" class="delete-channel-button">Delete</button>
+                <button 
+                  type="submit" 
+                  class="delete-channel-button"
+                  id="delete-channel-button-<%= channel.id %>"
+                  data-channelid="<%= channel.id %>"
+                >Delete</button>
               </form>
               <form action="/channels/<%= channel.id %>/moderate" method="GET" class="moderate-channel-form">
                 <button type="submit" class="moderate-channel-button">Moderate</button>
               </form>
               </div>
             </div>
+            <div id="deleteChannelModal-<%= channel.id %>" class="modal">
+              <div class="modal-content">
+                <h3 class="modal-text">Are you sure you want to delete this channel?</h3>
+                <div class="modal-buttons">
+                  <button id="deleteChannelBtn" class="delete-channel-button">Delete</button>
+                  <button id="cancelBtn">Cancel</button>
+                </div>
+              </div>
+            </div>
             <% }); %>
           </div>
-        </div>
-      </div>
-    </div>
-    <div id="deleteChannelModal" class="modal">
-      <div class="modal-content">
-        <h3 class="modal-text">Are you sure you want to delete this channel?</h3>
-        <div class="modal-buttons">
-          <button id="deleteChannelBtn" class="delete-channel-button">Delete</button>
-          <button id="cancelBtn">Cancel</button>
         </div>
       </div>
     </div>

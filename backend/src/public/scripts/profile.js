@@ -1,30 +1,38 @@
 //Make the modal pop up to ask the user if they are sure they want to delete the channel
-var modal = document.getElementById("deleteChannelModal");
-var deleteButton = document.querySelector(".delete-channel-button");
-var cancelButton = document.getElementById("cancelBtn");
+const deleteChannelButtons = document.querySelectorAll('.delete-channel-button');
 
-deleteButton.addEventListener("click", function(event) {
+deleteChannelButtons.forEach((button) => {
+  button.addEventListener('click', (event) => {
     event.preventDefault();
+    const channelID = button.getAttribute('data-channelid');
 
-    modal.style.display = "block";
+    const deleteChannelModal = document.getElementById(`deleteChannelModal-${channelID}`);
+
+    deleteChannelModal.style.display = 'block';
+
+    const deleteButton = deleteChannelModal.querySelector('#deleteChannelBtn');
+
+    deleteButton.addEventListener('click', () => {
+      const deleteChannelForm = button.parentNode;
+      deleteChannelForm.submit();
+    });
+
+    const cancelButton = deleteChannelModal.querySelector('#cancelBtn');
+
+    cancelButton.addEventListener('click', () => {
+      deleteChannelModal.style.display = 'none';
+    });
+  });
 });
 
-cancelButton.addEventListener("click", function() {
-    modal.style.display = "none";
+
+/*
+  deleteChannelBtn.addEventListener("click", function() {
+    var deleteChannelForm = modal.querySelector(".delete-channel-form");
+    deleteChannelForm.submit();
+  });
 });
-
-window.addEventListener("click", function(event) {
-    if (event.target == modal) {
-        modal.style.display = "none";
-    }
-});
-
-var deleteChannelBtn = document.getElementById("deleteChannelBtn");
-
-deleteChannelBtn.addEventListener("click", function() {
-    document.querySelector(".delete-channel-form").submit();
-});
-
+*/
 // Make the page appear on load
 window.addEventListener("load", function () {
     var div = document.getElementById("Appid");
