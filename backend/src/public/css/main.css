@@ -224,6 +224,7 @@ code {
   .channel-button-container {
     display: flex;
     flex-direction: column;
+    margin-left: auto;
   }
   .delete-channel-form,
   .moderate-channel-form {
