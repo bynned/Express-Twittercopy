@@ -25,14 +25,6 @@ deleteChannelButtons.forEach((button) => {
   });
 });
 
-
-/*
-  deleteChannelBtn.addEventListener("click", function() {
-    var deleteChannelForm = modal.querySelector(".delete-channel-form");
-    deleteChannelForm.submit();
-  });
-});
-*/
 // Make the page appear on load
 window.addEventListener("load", function () {
     var div = document.getElementById("Appid");
