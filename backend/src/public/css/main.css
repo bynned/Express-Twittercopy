@@ -143,6 +143,15 @@ code {
   background-color: darkred;
 }
 
+.delete-comment-button {
+  margin-right: 20px;
+  background-color: red;
+}
+
+.delete-comment-button:hover {
+  background-color: darkred;
+}
+
 .moderate-channel-button {
   margin-right: 10px;
 }
