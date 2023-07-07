@@ -38,6 +38,7 @@ The features of HushHub include
   - Creating channels where you can anonymously post
   - Joining other channels via channelkey
   - Own personal profile, where you can see your posts and created channels
+  - The ability to moderate your created channel
   - Liking or disliking posts
   - Comment on posts
   - Like or dislike comments
