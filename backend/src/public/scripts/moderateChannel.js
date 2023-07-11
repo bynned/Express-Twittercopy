@@ -25,6 +25,32 @@ deleteCommentButtons.forEach((button) => {
     });
 });
 
+// Modal pops up asking if the user is sure to delete the flagged post
+const deletePostButtons = document.querySelectorAll('.delete-post-button');
+
+deletePostButtons.forEach((button) => {
+    button.addEventListener('click', (event) => {
+        event.preventDefault();
+        const postID = button.getAttribute('data-postid');
+
+        const deletePostModal = document.getElementById(`deletePostModal-${postID}`);
+
+        deletePostModal.style.display = 'block';
+
+        const deleteButton = deletePostModal.querySelector('#deletePostBtn');
+
+        deleteButton.addEventListener('click', () => {
+            const deletePostForm = button.parentNode;
+            deletePostForm.submit();
+        });
+
+        const cancelButton = deletePostModal.querySelector('#cancelBtn');
+
+        cancelButton.addEventListener('click', () => {
+            deletePostModal.style.display = 'none';
+        });
+    });
+})
 
 
 window.addEventListener("load", function () {

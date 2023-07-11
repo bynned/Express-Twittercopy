@@ -50,7 +50,7 @@
                 <form action="/channels/<%= channelId %>/<%= post._id %>?_method=DELETE" method="POST" class="delete-post-form">
                   <input type="hidden" name="channelId" value="<%= channelId %>" />
                   <input type="hidden" name="postId" value="<%= post._id %>" />
-                  <button type="submit" class="delete-channel-button">Delete post</button>
+                  <button type="submit" class="delete-post-button" data-postid="<%= post._id %>">Delete post</button>
                 </form>
               </div>
             </div>
