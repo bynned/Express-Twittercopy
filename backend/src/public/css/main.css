@@ -39,7 +39,7 @@ code {
 
 .comment {
     border-radius: 4px;
-    border: 1px solid #F3A83C;
+    border: 1px solid #79CC79;
 }
 .comment-content {
   margin-left: 5px;
@@ -207,8 +207,8 @@ code {
   .textarea:focus,
   .textareaTitle:focus {
     outline: none;
-    border-color: #FBEAAB;
-    box-shadow: 0 0 5px #F3A83C;
+    border-color: #c1ffc1;
+    box-shadow: 0 0 5px #79CC79;
   }
 
   .channel-link {
@@ -246,7 +246,7 @@ code {
     padding: 2px;
     margin-bottom: 10px;
     border-radius: 5px;
-    background-color: #F3A83C;
+    background-color: #79CC79;
     align-items: center;
     max-width: 680px;
   }
@@ -254,7 +254,7 @@ code {
   padding: 2px;
   margin-bottom: 10px;
   border-radius: 5px;
-  background-color: #F3A83C;
+  background-color: #79CC79;
   align-items: center;
   max-width: 600px;
 }
@@ -354,7 +354,7 @@ a.button {
   appearance: button;
   color: white;
   text-decoration: none;
-  background-color: #F3A83C;
+  background-color: #79CC79;
   border: none;
   border-radius: 5px;
   padding: 10px 20px;
@@ -364,13 +364,13 @@ a.button {
 }
 
 a.button:hover {
-  background-color: #DA9736;
+  background-color: #6cb76c;
 }
 
 button,
 .LinkButton {
   text-decoration: none;
-  background-color: #F3A83C;
+  background-color: #79CC79;
   color: white;
   border: none;
   border-radius: 5px;
@@ -381,7 +381,7 @@ button,
 }
 
 button:hover {
-  background-color: #DA9736;
+  background-color: #6cb76c;
 }
 .button-container {
   display: flex;
@@ -458,7 +458,7 @@ button:hover {
 .App input[type="password"]:focus,
 .App input[type="email"]:focus {
   outline: none;
-  border: 2px solid #F3A83C;
+  border: 2px solid #79CC79;
 }
 
 .modal {
