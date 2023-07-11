@@ -134,21 +134,16 @@ code {
   display: flex;
 }
 
-.delete-channel-button {
+.delete-channel-button,
+.delete-comment-button,
+.delete-post-button {
   margin-right: 20px;
   background-color: red;
 }
 
-.delete-channel-button:hover {
-  background-color: darkred;
-}
-
-.delete-comment-button {
-  margin-right: 20px;
-  background-color: red;
-}
-
-.delete-comment-button:hover {
+.delete-channel-button:hover,
+.delete-comment-button:hover,
+.delete-post-button:hover {
   background-color: darkred;
 }
 
