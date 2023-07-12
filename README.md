@@ -46,6 +46,12 @@ The features of HushHub include
   - Flag posts or comments for the channel admin to check
   - The channel admin can now delete a flagged comment or a post from the moderation page
 
+### TODO
+
+- [ ] User privilages.
+- [ ] Email verification.
+- [ ] Channel configuration settings.
+
 
 
 
