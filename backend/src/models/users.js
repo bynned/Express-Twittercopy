@@ -11,6 +11,10 @@ const usersSchema = new mongoose.Schema({
         required: true,
         unique: true
     },
+    isVerified: {
+        type: Boolean,
+        default: false,
+    },
     availableChannels: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'channel',
