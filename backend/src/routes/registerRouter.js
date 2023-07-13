@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const userdb = require(".././models/users");
+const { v4: uuidv4 } = require('uuid');
 
 router.post("/register", function (req, res) {
   userdb.register(
@@ -23,5 +24,10 @@ router.post("/register", function (req, res) {
     }
   );
 });
+
+// Generate verificationToken
+function generateVerificationToken() {
+  return uuidv4();
+}
 
 module.exports = router;
