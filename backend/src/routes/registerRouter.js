@@ -4,8 +4,9 @@ const userdb = require(".././models/users");
 const { v4: uuidv4 } = require('uuid');
 
 router.post("/register", function (req, res) {
+  const verificationToken = generateVerificationToken();
   userdb.register(
-    new userdb({ email: req.body.email, username: req.body.username }),
+    new userdb({ email: req.body.email, username: req.body.username, verificationToken: verificationToken }),
     req.body.password,
     function (err, user) {
       if (err) {
